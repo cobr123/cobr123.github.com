@@ -1,4 +1,28 @@
-$(document).ready(function () { // load json file using jquery ajax
+
+$(document).ready(function () { 
+	loadProductCategories();
+	loadProducts();
+	loadCountries();
+	loadRegions();
+});
+//////////////////////////////////////////////////////
+function changeRealm(select) {
+	document.location.href = select.value;
+}
+function changeCategory(select) {
+	document.location.href = select.value;
+}
+function changeProduct(productId) {
+	document.location.href = select.value;
+}
+function changeCountry(select) {
+	document.location.href = select.value;
+}
+function changeRegion(select) {
+	document.location.href = select.value;
+}
+//////////////////////////////////////////////////////
+function get_action(form) {
 	$.getJSON('./data.json', function (data) {
 		var output = '<table border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">'
 +'<tbody><tr class="theader"><td rowspan="2">Город</td><td rowspan="2">Индекс</td><td rowspan="2">Объём</td><td rowspan="2">Местные, %</td><td colspan="3">Местные</td><td colspan="3">Магазины</td><td rowspan="2">Обновлено</td></tr>'
@@ -21,6 +45,64 @@ $(document).ready(function () { // load json file using jquery ajax
 		});
 		output += '</tbody></table>';
 		
-		$('#update').html(output); 	// replace all existing content
+		$('#grid').html(output); 	// replace all existing content
 	});
-});
+	return false;
+}
+////////////////////////////////////////////////////////////
+function loadProductCategories() {
+	$.getJSON('./product_categories.json', function (data) {
+		var output = '<select id="id_category" onchange="changeCategory(this);"><option value="0"></option>';
+
+		$.each(data, function (key, val) {
+			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+		});
+		output += '</select>';
+		
+		$('#categories').html(output); 	// replace all existing content
+	});
+	return false;
+}
+function loadProducts() {
+	$.getJSON('./products.json', function (data) {
+		var output = '';
+		var selected = $('#id_product').attr('value');
+		
+		$.each(data, function (key, val) {
+			output += '<img src="'+val.src+'"';
+			if(selected != null && selected == val.id){
+				output += ' border="1"';
+			}
+			output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">&nbsp;';
+		});
+		
+		$('#products').html(output); 	// replace all existing content
+	});
+	return false;
+}
+function loadCountries() {
+	$.getJSON('./countries.json', function (data) {
+		var output = '<select id="id_country" onchange="changeCountry(this);"><option value="0"></option>';
+
+		$.each(data, function (key, val) {
+			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+		});
+		output += '</select>';
+		
+		$('#countries').html(output); 	// replace all existing content
+	});
+	return false;
+}
+function loadRegions() {
+	$.getJSON('./regions.json', function (data) {
+		var output = '<select id="id_region" onchange="changeRegion(this);"><option value="0"></option>';
+
+		$.each(data, function (key, val) {
+			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+		});
+		output += '</select>';
+		
+		$('#regions').html(output); 	// replace all existing content
+	});
+	return false;
+}
