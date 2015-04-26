@@ -1,56 +1,40 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
   <title>Розничная торговля в городах</title>
 	<script type="text/javascript" src="http://yastatic.net/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="./tinysort.min.js"></script>
 	<script type="text/javascript" src="./script.js"></script>
   <link rel="stylesheet" type="text/css" href="./main.css">
 </head>
-
 <body>
-<form id="frm1" name="frm1" method="GET" action="http://www.progsrv.ru/virta/default.asp">
+<form onsubmit="get_action(this);">
 Розничная торговля в городах<br>
-
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
 <tbody><tr><td>
 <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolordark="#000000" bordercolorlight="#FFFFFF">
 <tbody><tr class="trec"><td nowrap="">
 <u><b>Реалм</b></u> 
-<select id="id_realm" name="id_realm" onchange="changeRealm()">
-<option value="1">anna</option><option value="2" selected="">vera</option><option value="3">olga</option><option value="4">mary</option><option value="5">lien</option>
-</select><br>
-<select id="id_category" name="id_category" onchange="document.forms[&#39;frm1&#39;].id_product.value=0;document.forms[&#39;frm1&#39;].submit();">
-<option value="0"></option>
-<option value="9">Автомобильные товары</option><option value="26">Аптека</option><option value="10">Бакалея</option><option value="11">Одежда и обувь</option><option value="12">Продукты питания</option><option value="13" selected="">Промышленные товары</option><option value="14">Товары для дома</option><option value="15">Электроника</option><option value="16">Ювелирные изделия</option>
-</select>&nbsp;
-<img src="./Розничная торговля в городах_files/bicycle.gif" width="24" height="24" id="img119" name="img119" title="Велосипед" style="cursor:pointer" onclick="loadProduct(119)">&nbsp;<img src="./Розничная торговля в городах_files/grass_cutter.gif" width="24" height="24" id="img151" name="img151" title="Газонокосилка" style="cursor:pointer" onclick="loadProduct(151)">&nbsp;<img src="./Розничная торговля в городах_files/toys.gif" width="24" height="24" border="1" id="img120" name="img120" title="Игрушки" style="cursor:pointer" onclick="loadProduct(120)">&nbsp;<img src="./Розничная торговля в городах_files/gift.gif" width="24" height="24" id="img121" name="img121" title="Подарки и Сувениры" style="cursor:pointer" onclick="loadProduct(121)">&nbsp;<img src="./Розничная торговля в городах_files/football.gif" width="24" height="24" id="img122" name="img122" title="Спортинвентарь" style="cursor:pointer" onclick="loadProduct(122)">&nbsp;<img src="./Розничная торговля в городах_files/fabric.gif" width="24" height="24" id="img123" name="img123" title="Ткань" style="cursor:pointer" onclick="loadProduct(123)">&nbsp;<img src="./Розничная торговля в городах_files/trainer.gif" width="24" height="24" id="img124" name="img124" title="Тренажер" style="cursor:pointer" onclick="loadProduct(124)">&nbsp;<img src="./Розничная торговля в городах_files/iron.gif" width="24" height="24" id="img125" name="img125" title="Утюг" style="cursor:pointer" onclick="loadProduct(125)">&nbsp;<img src="./Розничная торговля в городах_files/hairdrier.gif" width="24" height="24" id="img126" name="img126" title="Фен" style="cursor:pointer" onclick="loadProduct(126)">&nbsp;<img src="./Розничная торговля в городах_files/camera.gif" width="24" height="24" id="img127" name="img127" title="Фототехника" style="cursor:pointer" onclick="loadProduct(127)">&nbsp;<img src="./Розничная торговля в городах_files/pwtools.gif" width="24" height="24" id="img494" name="img494" title="Электроинструмент" style="cursor:pointer" onclick="loadProduct(494)">&nbsp;
-<input type="hidden" id="id_product" name="id_product" value="120">
+<select id="realm" onchange="changeRealm(this);"><option value="anna">anna</option><option value="vera" selected="">vera</option><option value="olga">olga</option><option value="lien">lien</option></select><br>
+<div id="categories">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
+<div id="products">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>
+<input type="hidden" id="id_product" value="">
 <br>
-<select id="id_country" name="id_country" onchange="document.forms[&#39;frm1&#39;].id_region.value=0;document.forms[&#39;frm1&#39;].submit();">
-<option value="0"></option>
-<option value="22">Азербайджан</option><option value="23">Армения</option><option value="24">Болгария</option><option value="25">Великобритания</option><option value="108">Венесуэла</option><option value="27">Германия</option><option value="28">Казахстан</option><option value="58">Латвия</option><option value="59">Литва</option><option value="107">Нидерланды</option><option value="64">Норвегия</option><option value="34">Республика Беларусь</option><option value="35" selected="">Россия</option><option value="38">Узбекистан</option><option value="39">Украина</option><option value="40">Финляндия</option><option value="41">Франция</option><option value="60">Эстония</option>
-</select>&nbsp;
-<select id="id_region" name="id_region" onchange="document.forms[&#39;frm1&#39;].submit();">
-<option value="0"></option>
-<option value="61">Дальний Восток</option><option value="62">Поволжье</option><option value="134">Северо-Запад</option><option value="63">Сибирь</option><option value="64">Урал</option><option value="65">Центральная Россия</option><option value="66">Южная Россия</option>
-</select>&nbsp;
-<select id="id_city" name="id_city" onchange="document.forms[&#39;frm1&#39;].submit();">
-<option value="0"></option>
-
-</select>&nbsp;
+<div id="countries">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
+<div id="regions">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
 <br>
-<u><b>Объём </b></u> от <input type="text" id="volume1" name="volume1" size="5" maxlength="6" value="1"> до <input type="text" id="volume2" name="volume2" size="8" maxlength="8" value="100000000"><br>
-<u><b>Местные, %</b></u> от <input type="text" id="mpp1" name="mpp1" size="5" maxlength="6" value="60.00"> до <input type="text" id="mpp2" name="mpp2" size="5" maxlength="6" value="100.00"><br>
-<u><b>Местные: цена</b></u> от <input type="text" id="mp11" name="mp11" size="12" maxlength="12" value="0.00"> до <input type="text" id="mp12" name="mp12" size="12" maxlength="12" value="1000000.00">,
-<u><b>качество</b></u> от <input type="text" id="mp21" name="mp21" size="7" maxlength="7" value="1.00"> до <input type="text" id="mp22" name="mp22" size="7" maxlength="7" value="1000.00"><br>
-<u><b>Магазины: цена</b></u> от <input type="text" id="m11" name="m11" size="12" maxlength="12" value="0.00"> до <input type="text" id="m12" name="m12" size="12" maxlength="12" value="1000000.00">,
-<u><b>качество</b></u> от <input type="text" id="m21" name="m21" size="7" maxlength="7" value="1.00"> до <input type="text" id="m22" name="m22" size="7" maxlength="7" value="1000.00">,
-<u><b>бренд</b></u> от <input type="text" id="m31" name="m31" size="7" maxlength="7" value="0.00"> до <input type="text" id="m32" name="m32" size="7" maxlength="7" value="10.00"><br>
-<input type="submit" id="btnSubmit" name="btnSubmit" value="Формировать">
+<u><b>Объём </b></u> от <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> до <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
+<u><b>Местные, %</b></u> от <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> до <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
+<u><b>Местные: цена</b></u> от <input type="text" id="localPriceFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="localPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b>качество</b></u> от <input type="text" id="localQualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="localQualityTo" size="7" maxlength="7" value="1000.00"><br>
+<u><b>Магазины: цена</b></u> от <input type="text" id="shopPriceFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="shopPriceTo" size="12" maxlength="12" value="1000000.00">,
+<u><b>качество</b></u> от <input type="text" id="shopQualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="shopQualityTo" size="7" maxlength="7" value="1000.00">,
+<u><b>бренд</b></u> от <input type="text" id="shopBrandFrom" size="7" maxlength="7" value="0.00"> до <input type="text" id="shopBrandTo" size="7" maxlength="7" value="100.00"><br>
+<input type="submit" id="btnSubmit" value="Сформировать">
 </td></tr>
 </tbody></table>
 </td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td>
-<div id="update">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>
+<div id="grid">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>
 </td></tr>
 </tbody></table>
 </form>
