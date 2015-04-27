@@ -7,7 +7,7 @@ $(document).ready(function () {
 });
 //////////////////////////////////////////////////////
 function changeRealm(select) {
-	document.location.href = select.value;
+	loadData();
 }
 function changeCategory(select) {
 	document.location.href = select.value;
