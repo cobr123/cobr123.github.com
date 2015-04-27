@@ -161,8 +161,9 @@ function changeRegion(select) {
 function changeProduct(productId) {
 	var selected = $('#id_product').val();
 	if(selected != null && selected != ''){
-		$('#img'+selected).val();
+		$('#img'+selected).attr('border','');
 	}
+	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
 	loadData();
 }
