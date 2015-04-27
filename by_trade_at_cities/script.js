@@ -92,17 +92,19 @@ function loadData() {
 		var order;
 		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
-		console.log(tableHeaderId);
-		isAscending = tableHeader.getAttribute('data-order')==='asc';
-		order = isAscending?'desc':'asc';
-		tableHeader.setAttribute('data-order',order);
-		tinysort(
-				tableBody.querySelectorAll('tr')
-				,{
-						selector:'td#td_'+tableHeaderId
-						,order: order
-				}
-		);
+		if (tableHeaderId != null && tableHeaderId != '') {
+			//console.log(tableHeaderId);
+			isAscending = tableHeader.getAttribute('data-order')==='asc';
+			order = isAscending?'desc':'asc';
+			tableHeader.setAttribute('data-order',order);
+			tinysort(
+					tableBody.querySelectorAll('tr')
+					,{
+							selector:'td#td_'+tableHeaderId
+							,order: order
+					}
+			);
+		}
 	});
 	return false;
 }
