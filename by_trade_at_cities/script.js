@@ -82,16 +82,18 @@ function loadData() {
 		
 		$('#grid').html(output); 	// replace all existing content
 	});
-	var table = document.getElementById('xtable')
-    ,tableHead = table.querySelector('thead')
-    ,tableHeaders = tableHead.querySelectorAll('th')
-    ,tableBody = table.querySelector('tbody')
-	;
+	var table = document.getElementById('xtable');
+  var tableHead = table.querySelector('thead');
+  var tableHeaders = tableHead.querySelectorAll('th');
+  var tableBody = table.querySelector('tbody');
+		
 	tableHead.addEventListener('click',function(e){
-    var tableHeader = e.target
-        ,textContent = tableHeader.textContent
-        ,tableHeaderIndex,isAscending,order
-    ;
+    var tableHeader = e.target;
+    var textContent = tableHeader.textContent;
+    var tableHeaderIndex;
+		var isAscending;
+		var order;
+		
     if (textContent!=='add row') {
 			while (tableHeader.nodeName!=='TH') {
 					tableHeader = tableHeader.parentNode;
