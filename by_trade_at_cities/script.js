@@ -71,18 +71,15 @@ function loadData() {
 	var tableHead = table.querySelector('thead');
 		
 	tableHead.addEventListener('click',function(e){
-    var tableBody = table.querySelector('tbody');
-		var tableHeaders = tableHead.querySelectorAll('th');
-    var tableHeader = e.target;
-    var textContent = tableHeader.textContent;
-    var tableHeaderIndex;
+		var tableBody = table.querySelector('tbody');
+		var tableHeader = e.target;
 		var isAscending;
 		var order;
 		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
-			isAscending = tableHeader.getAttribute('data-order')==='asc';
+			isAscending = tableHeader.getAttribute('data-order')=='asc';
 			order = isAscending?'desc':'asc';
 			tableHeader.setAttribute('data-order',order);
 			tinysort(
