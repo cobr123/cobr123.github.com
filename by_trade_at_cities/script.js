@@ -73,6 +73,7 @@ function loadData() {
 function loadProductCategories() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	
 	$.getJSON('./'+realm+'/product_categories.json', function (data) {
 		var output = '<option value="" selected=""></option>';
 
@@ -81,6 +82,7 @@ function loadProductCategories() {
 		});
 		
 		$('#id_category').html(output); 	// replace all existing content
+		$('#products').html(''); 
 	});
 	return false;
 }
