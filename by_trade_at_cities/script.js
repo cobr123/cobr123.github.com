@@ -69,6 +69,7 @@ function loadData() {
 				output += '<td align="right" style="color:black">'+val.localPercent+'</td>';
 				output += '<td align="right">'+val.localPrice+'</td>';
 				output += '<td align="right">'+val.localQuality+'</td>';
+				output += '<td align="right">'+val.localBrand+'</td>';
 				output += '<td align="right">'+val.shopPrice+'</td>';
 				output += '<td align="right">'+val.shopQuality+'</td>';
 				output += '<td align="right">'+val.shopBrand+'</td>';
