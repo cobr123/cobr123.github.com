@@ -124,11 +124,11 @@ function loadProducts() {
 		
 		$.each(data, function (key, val) {
 			if(svCategoryId == val.productCategory){
-				output += '<img src="http://virtonomica.ru'+val.imgUrl+'"';
+				output += '&nbsp;<img src="http://virtonomica.ru'+val.imgUrl+'"';
 				if(selected != null && selected == val.id){
 					output += ' border="1"';
 				}
-				output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">&nbsp;';
+				output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">';
 			}
 		});
 		
