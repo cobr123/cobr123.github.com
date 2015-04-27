@@ -35,9 +35,9 @@ function loadData() {
 	if (productID == null || productID == '') return;
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-		var output = '<table border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">'
-+'<tbody><tr class="theader"><td rowspan="2">Город</td><td rowspan="2">Индекс</td><td rowspan="2">Объём</td><td rowspan="2">Местные, %</td><td colspan="3">Местные</td><td colspan="3">Магазины</td><td rowspan="2">Обновлено</td></tr>'
-+'<tr class="theader"><td>Цена</td><td>Качество</td><td>Бренд</td><td>Цена</td><td>Качество</td><td>Бренд</td></tr>';
+		var output = '<table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">'
++'<thead><tr class="theader"><th rowspan="2">Город</th><th rowspan="2">Индекс</th><th rowspan="2">Объём</th><th rowspan="2">Местные, %</th><th colspan="3">Местные</th><th colspan="3">Магазины</th><th rowspan="2">Обновлено</th></tr>'
++'<tr class="theader"><th>Цена</th><th>Качество</th><th>Бренд</th><th>Цена</th><th>Качество</th><th>Бренд</th></tr></thead><tbody>';
 
 		$.each(data, function (key, val) {
 			var suitable = true;
@@ -81,6 +81,33 @@ function loadData() {
 		output += '</tbody></table>';
 		
 		$('#grid').html(output); 	// replace all existing content
+	});
+	var table = document.getElementById('xtable')
+    ,tableHead = table.querySelector('thead')
+    ,tableHeaders = tableHead.querySelectorAll('th')
+    ,tableBody = table.querySelector('tbody')
+	;
+	tableHead.addEventListener('click',function(e){
+    var tableHeader = e.target
+        ,textContent = tableHeader.textContent
+        ,tableHeaderIndex,isAscending,order
+    ;
+    if (textContent!=='add row') {
+			while (tableHeader.nodeName!=='TH') {
+					tableHeader = tableHeader.parentNode;
+			}
+			tableHeaderIndex = Array.prototype.indexOf.call(tableHeaders,tableHeader);
+			isAscending = tableHeader.getAttribute('data-order')==='asc';
+			order = isAscending?'desc':'asc';
+			tableHeader.setAttribute('data-order',order);
+			tinysort(
+					tableBody.querySelectorAll('tr')
+					,{
+							selector:'td:nth-child('+(tableHeaderIndex+1)+')'
+							,order: order
+					}
+			);
+		}
 	});
 	return false;
 }
