@@ -110,7 +110,9 @@ function loadData() {
 }
 
 function loadProductCategories() {
-	$.getJSON('./product_categories.json', function (data) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	$.getJSON('./'+realm+'/product_categories.json', function (data) {
 		var output = '<select id="id_category" onchange="changeCategory(this);"><option value="0"></option>';
 
 		$.each(data, function (key, val) {
@@ -123,7 +125,9 @@ function loadProductCategories() {
 	return false;
 }
 function loadProducts() {
-	$.getJSON('./products.json', function (data) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	$.getJSON('./'+realm+'/products.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
@@ -140,7 +144,9 @@ function loadProducts() {
 	return false;
 }
 function loadCountries() {
-	$.getJSON('./countries.json', function (data) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	$.getJSON('./'+realm+'/countries.json', function (data) {
 		var output = '<select id="id_country" onchange="changeCountry(this);"><option value="0"></option>';
 
 		$.each(data, function (key, val) {
@@ -153,7 +159,9 @@ function loadCountries() {
 	return false;
 }
 function loadRegions() {
-	$.getJSON('./regions.json', function (data) {
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	$.getJSON('./'+realm+'/regions.json', function (data) {
 		var output = '<select id="id_region" onchange="changeRegion(this);"><option value="0"></option>';
 
 		$.each(data, function (key, val) {
