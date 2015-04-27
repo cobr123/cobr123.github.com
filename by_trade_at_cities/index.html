@@ -15,12 +15,12 @@
 <tbody><tr class="trec"><td nowrap="">
 <u><b>Реалм</b></u> 
 <select id="realm" name="realm" onchange="changeRealm(this);"><option value="anna">anna</option><option value="vera" selected="">vera</option><option value="olga">olga</option><option value="lien">lien</option></select><br>
-<div id="categories">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
+<select id="id_category" onchange="changeCategory(this);"></select>&nbsp;
 <div id="products">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>
 <input type="hidden" id="id_product" name="id_product" value="">
 <br>
-<div id="countries">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
-<div id="regions">This is a div. This will be updated with Contents from JSON file by jQuery AJAX.</div>&nbsp;
+<select id="id_country" onchange="changeCountry(this);"></select>&nbsp;
+<select id="id_region" onchange="changeRegion(this);"></select>&nbsp;
 <br>
 <u><b>Объём </b></u> от <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> до <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
 <u><b>Местные, %</b></u> от <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> до <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>

@@ -1,25 +1,29 @@
 
 $(document).ready(function () { 
 	loadProductCategories();
-	loadProducts();
 	loadCountries();
-	loadRegions();
 });
 //////////////////////////////////////////////////////
 function changeRealm(select) {
-	loadData();
+	loadProductCategories();
+	loadCountries();
 }
 function changeCategory(select) {
-	document.location.href = select.value;
-}
-function changeProduct(productId) {
-	document.location.href = select.value;
+	loadProducts();
 }
 function changeCountry(select) {
-	document.location.href = select.value;
+	loadRegions();
 }
 function changeRegion(select) {
-	document.location.href = select.value;
+	loadData();
+}
+function changeProduct(productId) {
+	var selected = $('#id_product').val();
+	if(selected != null && selected != ''){
+		$('#img'+selected).val();
+	}
+	$('#id_product').val(productId);
+	loadData();
 }
 function getRealm(){
 	return $('#realm').val();
@@ -31,7 +35,7 @@ function getProductID(){
 function loadData() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
-	var productID = '3868';//getProductID();
+	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
@@ -79,7 +83,7 @@ function loadData() {
 		$('#xtabletbody').html(output); 	// replace all existing content
 	});
 	var table = document.getElementById('xtable');
-  var tableHead = table.querySelector('thead');
+	var tableHead = table.querySelector('thead');
 		
 	tableHead.addEventListener('click',function(e){
     var tableBody = table.querySelector('tbody');
@@ -112,14 +116,13 @@ function loadProductCategories() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	$.getJSON('./'+realm+'/product_categories.json', function (data) {
-		var output = '<select id="id_category" onchange="changeCategory(this);"><option value="0"></option>';
+		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+			output += '<option value="'+val.caption+'">'+val.caption+'</option>';
 		});
-		output += '</select>';
 		
-		$('#categories').html(output); 	// replace all existing content
+		$('#id_category').html(output); 	// replace all existing content
 	});
 	return false;
 }
@@ -131,7 +134,7 @@ function loadProducts() {
 		var selected = $('#id_product').attr('value');
 		
 		$.each(data, function (key, val) {
-			output += '<img src="'+val.src+'"';
+			output += '<img src="http://virtonomica.ru/'+val.src+'"';
 			if(selected != null && selected == val.id){
 				output += ' border="1"';
 			}
@@ -146,14 +149,13 @@ function loadCountries() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	$.getJSON('./'+realm+'/countries.json', function (data) {
-		var output = '<select id="id_country" onchange="changeCountry(this);"><option value="0"></option>';
+		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.id+'">'+val.caption+'</option>';
 		});
-		output += '</select>';
 		
-		$('#countries').html(output); 	// replace all existing content
+		$('#id_country').html(output); 	// replace all existing content
 	});
 	return false;
 }
@@ -161,14 +163,13 @@ function loadRegions() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	$.getJSON('./'+realm+'/regions.json', function (data) {
-		var output = '<select id="id_region" onchange="changeRegion(this);"><option value="0"></option>';
+		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
 			output += '<option value="'+val.id+'">'+val.caption+'</option>';
 		});
-		output += '</select>';
 		
-		$('#regions').html(output); 	// replace all existing content
+		$('#id_region').html(output); 	// replace all existing content
 	});
 	return false;
 }
