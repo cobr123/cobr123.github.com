@@ -96,7 +96,7 @@ function loadData() {
 					tableHeader = tableHeader.parentNode;
 			}
 			tableHeaderIndex = Array.prototype.indexOf.call(tableHeaders,tableHeader);
-			if (tableHeaderIndex > 4){
+			if (tableHeaderIndex == 5){
 				tableHeaderIndex = tableHeaderIndex - 1;
 			}
 			console.log(tableHeaderIndex);
