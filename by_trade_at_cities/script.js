@@ -1,35 +1,16 @@
 
-$(document).ready(function () { 
-	loadProductCategories();
-	loadCountries();
-});
-//////////////////////////////////////////////////////
-function changeRealm(select) {
-	loadProductCategories();
-	loadCountries();
-}
-function changeCategory(select) {
-	loadProducts();
-}
-function changeCountry(select) {
-	loadRegions();
-}
-function changeRegion(select) {
-	loadData();
-}
-function changeProduct(productId) {
-	var selected = $('#id_product').val();
-	if(selected != null && selected != ''){
-		$('#img'+selected).val();
-	}
-	$('#id_product').val(productId);
-	loadData();
-}
 function getRealm(){
 	return $('#realm').val();
 }
 function getProductID(){
 	return $('#id_product').val();
+}
+function nvl(val1, val2){
+	if (val1 == null || val1 == ''){
+		return val2;
+	} else {
+		return val1;
+	}
 }
 //////////////////////////////////////////////////////
 function loadData() {
@@ -43,6 +24,10 @@ function loadData() {
 
 		$.each(data, function (key, val) {
 			var suitable = true;
+			
+			if (suitable && val.productId == $('#id_product').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.countryId == nvl($('#id_country').val(),val.countryId)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.regionId == nvl($('#id_region').val(),val.regionId)) {suitable = true;} else {suitable = false;}
 			
 			if (suitable && val.volume >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.volume <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
@@ -134,7 +119,7 @@ function loadProducts() {
 		var selected = $('#id_product').attr('value');
 		
 		$.each(data, function (key, val) {
-			output += '<img src="http://virtonomica.ru/'+val.src+'"';
+			output += '<img src="http://virtonomica.ru'+val.imgUrl+'"';
 			if(selected != null && selected == val.id){
 				output += ' border="1"';
 			}
@@ -148,6 +133,7 @@ function loadProducts() {
 function loadCountries() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	
 	$.getJSON('./'+realm+'/countries.json', function (data) {
 		var output = '<option value="" selected=""></option>';
 
@@ -162,14 +148,47 @@ function loadCountries() {
 function loadRegions() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	
+	var svCountryId = $('#id_country').val();
+	if (svCountryId == null || svCountryId == '') return;
+	
 	$.getJSON('./'+realm+'/regions.json', function (data) {
 		var output = '<option value="" selected=""></option>';
-
+		
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+			if(val.countryId == svCountryId){
+				output += '<option value="'+val.id+'">'+val.caption+'</option>';
+			}
 		});
 		
 		$('#id_region').html(output); 	// replace all existing content
 	});
 	return false;
 }
+function changeRealm(select) {
+	loadProductCategories();
+	loadCountries();
+}
+function changeCategory(select) {
+	loadProducts();
+}
+function changeCountry(select) {
+	loadRegions();
+}
+function changeRegion(select) {
+	loadData();
+}
+function changeProduct(productId) {
+	var selected = $('#id_product').val();
+	if(selected != null && selected != ''){
+		$('#img'+selected).val();
+	}
+	$('#id_product').val(productId);
+	loadData();
+}
+
+//////////////////////////////////////////////////////
+$(document).ready(function () { 
+	loadProductCategories();
+	loadCountries();
+});
