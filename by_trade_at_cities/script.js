@@ -63,15 +63,15 @@ function loadData() {
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td><a href="http://virtonomica.ru/olga/main/globalreport/marketing/by_trade_at_cities/'+val.productId+'/'+val.countryId+'/'+val.regionId+'/'+val.cityId+'">'+val.cityCaption+'</a></td>';
-				output += '<td align="center">'+val.marketIdx+'</td>';
-				output += '<td align="right">'+val.volume+'</td>';
-				output += '<td align="right" style="color:black">'+val.localPercent+'</td>';
-				output += '<td align="right">'+val.localPrice+'</td>';
-				output += '<td align="right">'+val.localQuality+'</td>';
-				output += '<td align="right">'+val.shopPrice+'</td>';
-				output += '<td align="right">'+val.shopQuality+'</td>';
-				output += '<td align="right">'+val.shopBrand+'</td>';
+				output += '<td id="td_city"><a href="http://virtonomica.ru/olga/main/globalreport/marketing/by_trade_at_cities/'+val.productId+'/'+val.countryId+'/'+val.regionId+'/'+val.cityId+'">'+val.cityCaption+'</a></td>';
+				output += '<td align="center" id="td_idx">'+val.marketIdx+'</td>';
+				output += '<td align="right" id="td_volume">'+val.volume+'</td>';
+				output += '<td align="right" id="td_local_perc" style="color:black">'+val.localPercent+'</td>';
+				output += '<td align="right" id="td_local_price">'+val.localPrice+'</td>';
+				output += '<td align="right" id="td_local_quality">'+val.localQuality+'</td>';
+				output += '<td align="right" id="td_shop_price">'+val.shopPrice+'</td>';
+				output += '<td align="right" id="td_shop_quality">'+val.shopQuality+'</td>';
+				output += '<td align="right" id="td_shop_brand">'+val.shopBrand+'</td>';
 				output += '<td align="center">11.03.2013</td>';
 				output += '</tr>';
 			}
@@ -91,26 +91,18 @@ function loadData() {
 		var isAscending;
 		var order;
 		
-    if (textContent!=='add row') {
-			while (tableHeader.nodeName!=='TH') {
-					tableHeader = tableHeader.parentNode;
-			}
-			tableHeaderIndex = Array.prototype.indexOf.call(tableHeaders,tableHeader);
-			if (tableHeaderIndex == 5){
-				tableHeaderIndex = tableHeaderIndex - 1;
-			}
-			console.log(tableHeaderIndex);
-			isAscending = tableHeader.getAttribute('data-order')==='asc';
-			order = isAscending?'desc':'asc';
-			tableHeader.setAttribute('data-order',order);
-			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td:nth-child('+(tableHeaderIndex+1)+')'
-							,order: order
-					}
-			);
-		}
+		var tableHeaderId = tableHeader.getAttribute('id').substr(2);
+		console.log(tableHeaderId);
+		isAscending = tableHeader.getAttribute('data-order')==='asc';
+		order = isAscending?'desc':'asc';
+		tableHeader.setAttribute('data-order',order);
+		tinysort(
+				tableBody.querySelectorAll('tr')
+				,{
+						selector:'td#td_'+tableHeaderId
+						,order: order
+				}
+		);
 	});
 	return false;
 }
