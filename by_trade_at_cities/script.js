@@ -91,7 +91,7 @@ function loadData() {
 		var isAscending;
 		var order;
 		
-		var tableHeaderId = tableHeader.getAttribute('id').substr(2);
+		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		console.log(tableHeaderId);
 		isAscending = tableHeader.getAttribute('data-order')==='asc';
 		order = isAscending?'desc':'asc';
