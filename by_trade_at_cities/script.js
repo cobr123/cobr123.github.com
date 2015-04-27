@@ -83,10 +83,10 @@ function loadData() {
 	});
 	var table = document.getElementById('xtable');
   var tableHead = table.querySelector('thead');
-  var tableHeaders = tableHead.querySelectorAll('th');
-  var tableBody = table.querySelector('tbody');
 		
 	tableHead.addEventListener('click',function(e){
+    var tableBody = table.querySelector('tbody');
+		var tableHeaders = tableHead.querySelectorAll('th');
     var tableHeader = e.target;
     var textContent = tableHeader.textContent;
     var tableHeaderIndex;
