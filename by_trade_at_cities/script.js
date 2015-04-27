@@ -67,30 +67,6 @@ function loadData() {
 		
 		$('#xtabletbody').html(output); 	// replace all existing content
 	});
-	var table = document.getElementById('xtable');
-	var tableHead = table.querySelector('thead');
-		
-	tableHead.addEventListener('click',function(e){
-		var tableBody = table.querySelector('tbody');
-		var tableHeader = e.target;
-		var isAscending;
-		var order;
-		
-		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
-		if (tableHeaderId != null && tableHeaderId != '') {
-			//console.log(tableHeaderId);
-			isAscending = tableHeader.getAttribute('data-order')=='asc';
-			order = isAscending?'desc':'asc';
-			tableHeader.setAttribute('data-order',order);
-			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td#td_'+tableHeaderId
-							,order: order
-					}
-			);
-		}
-	});
 	return false;
 }
 
@@ -195,4 +171,29 @@ function changeProduct(productId) {
 $(document).ready(function () { 
 	loadProductCategories();
 	loadCountries();
+	
+	var table = document.getElementById('xtable');
+	var tableHead = table.querySelector('thead');
+		
+	tableHead.addEventListener('click',function(e){
+		var tableBody = table.querySelector('tbody');
+		var tableHeader = e.target;
+		var isAscending;
+		var order;
+		
+		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
+		if (tableHeaderId != null && tableHeaderId != '') {
+			//console.log(tableHeaderId);
+			isAscending = tableHeader.getAttribute('data-order')=='asc';
+			order = isAscending?'desc':'asc';
+			tableHeader.setAttribute('data-order',order);
+			tinysort(
+					tableBody.querySelectorAll('tr')
+					,{
+							selector:'td#td_'+tableHeaderId
+							,order: order
+					}
+			);
+		}
+	});
 });
