@@ -96,6 +96,9 @@ function loadData() {
 					tableHeader = tableHeader.parentNode;
 			}
 			tableHeaderIndex = Array.prototype.indexOf.call(tableHeaders,tableHeader);
+			if (tableHeaderIndex > 4){
+				tableHeaderIndex = tableHeaderIndex - 1;
+			}
 			console.log(tableHeaderIndex);
 			isAscending = tableHeader.getAttribute('data-order')==='asc';
 			order = isAscending?'desc':'asc';
