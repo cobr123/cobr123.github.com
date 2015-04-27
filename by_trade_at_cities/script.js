@@ -79,7 +79,7 @@ function loadData() {
 		});
 		output += '</tbody>';
 		
-		$('#grid').html(output); 	// replace all existing content
+		$('#xtable').html(output); 	// replace all existing content
 	});
 	var table = document.getElementById('xtable');
   var tableHead = table.querySelector('thead');
