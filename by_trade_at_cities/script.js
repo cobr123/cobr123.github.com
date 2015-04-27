@@ -69,7 +69,6 @@ function loadData() {
 				output += '<td align="right" style="color:black">'+val.localPercent+'</td>';
 				output += '<td align="right">'+val.localPrice+'</td>';
 				output += '<td align="right">'+val.localQuality+'</td>';
-				output += '<td align="right">'+val.localBrand+'</td>';
 				output += '<td align="right">'+val.shopPrice+'</td>';
 				output += '<td align="right">'+val.shopQuality+'</td>';
 				output += '<td align="right">'+val.shopBrand+'</td>';
@@ -97,6 +96,7 @@ function loadData() {
 					tableHeader = tableHeader.parentNode;
 			}
 			tableHeaderIndex = Array.prototype.indexOf.call(tableHeaders,tableHeader);
+			console.log(tableHeaderIndex);
 			isAscending = tableHeader.getAttribute('data-order')==='asc';
 			order = isAscending?'desc':'asc';
 			tableHeader.setAttribute('data-order',order);
