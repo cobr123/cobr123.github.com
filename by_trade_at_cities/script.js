@@ -35,8 +35,7 @@ function loadData() {
 	if (productID == null || productID == '') return;
 	
 	$.getJSON('./'+realm+'/tradeAtCity_'+productID+'.json', function (data) {
-		var output = '<table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">'
-+'<thead><tr class="theader"><th rowspan="2">Город</th><th rowspan="2">Индекс</th><th rowspan="2">Объём</th><th rowspan="2">Местные, %</th><th colspan="3">Местные</th><th colspan="3">Магазины</th><th rowspan="2">Обновлено</th></tr>'
+		var output = '<thead><tr class="theader"><th rowspan="2">Город</th><th rowspan="2">Индекс</th><th rowspan="2">Объём</th><th rowspan="2">Местные, %</th><th colspan="3">Местные</th><th colspan="3">Магазины</th><th rowspan="2">Обновлено</th></tr>'
 +'<tr class="theader"><th>Цена</th><th>Качество</th><th>Бренд</th><th>Цена</th><th>Качество</th><th>Бренд</th></tr></thead><tbody>';
 
 		$.each(data, function (key, val) {
@@ -78,7 +77,7 @@ function loadData() {
 				output += '</tr>';
 			}
 		});
-		output += '</tbody></table>';
+		output += '</tbody>';
 		
 		$('#grid').html(output); 	// replace all existing content
 	});
