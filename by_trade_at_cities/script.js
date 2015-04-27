@@ -180,6 +180,7 @@ function changeCategory(select) {
 }
 function changeCountry(select) {
 	loadRegions();
+	loadData();
 }
 function changeRegion(select) {
 	loadData();
