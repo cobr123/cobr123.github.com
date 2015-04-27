@@ -114,16 +114,22 @@ function loadProductCategories() {
 function loadProducts() {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
+	
+	var svCategoryId = $('#id_category').val();
+	if (svCategoryId == null || svCategoryId == '') return;
+	
 	$.getJSON('./'+realm+'/products.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
 		$.each(data, function (key, val) {
-			output += '<img src="http://virtonomica.ru'+val.imgUrl+'"';
-			if(selected != null && selected == val.id){
-				output += ' border="1"';
+			if(svCategoryId == val.productCategory){
+				output += '<img src="http://virtonomica.ru'+val.imgUrl+'"';
+				if(selected != null && selected == val.id){
+					output += ' border="1"';
+				}
+				output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">&nbsp;';
 			}
-			output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">&nbsp;';
 		});
 		
 		$('#products').html(output); 	// replace all existing content
