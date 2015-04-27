@@ -72,7 +72,6 @@ function loadData() {
 				output += '<td align="right" id="td_shop_price">'+val.shopPrice+'</td>';
 				output += '<td align="right" id="td_shop_quality">'+val.shopQuality+'</td>';
 				output += '<td align="right" id="td_shop_brand">'+val.shopBrand+'</td>';
-				output += '<td align="center">11.03.2013</td>';
 				output += '</tr>';
 			}
 		});
