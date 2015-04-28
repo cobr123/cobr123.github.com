@@ -29,12 +29,12 @@ function loadSavedFlt(){
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
-			console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+			//console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
 			if (id_product == null || id_product == '') return;
 			changeProduct(id_product);
 		};
 		var productCategoriesCallback = function() {
-			console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
+			//console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 			if (id_category == null || id_category == '') return;
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
@@ -42,14 +42,14 @@ function loadSavedFlt(){
 		var changeCountryCallback = function() {
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
-				console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 				changeRegion();
 			}
   		};
 		var countryCallback = function() {
 			if (id_country != null || id_country != '') {
 				$('#id_country').val(id_country);
-				console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
+				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 				changeCountry(changeCountryCallback);
 			}
   		};
@@ -58,6 +58,7 @@ function loadSavedFlt(){
 	} else {
 		loadProductCategories();
 		loadCountries();
+		fillUpdateDate();
 	}
 }
 
@@ -220,6 +221,7 @@ function changeRealm(productCategoriesCallback, countryCallback) {
 	loadProductCategories(productCategoriesCallback);
 	loadCountries(countryCallback);
 	setVal('realm', getRealm());
+	fillUpdateDate();
 }
 function changeCategory(callback) {
 	loadProducts(callback);
@@ -258,6 +260,21 @@ function transformToAssocArray( prmstr ) {
 function getSearchParameters() {
       var prmstr = window.location.search.substr(1);
       return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+}
+function fillUpdateDate() {
+	$('#update_date').val('выберите реалм');
+	var realm = getRealm();
+	if (realm == null || realm == '') return;
+	
+	$.getJSON('./'+realm+'/updateDate.json', function (data) {
+		var output = '';
+
+		$.each(data, function (key, val) {
+			output = val.d;
+		});
+		
+		$('#update_date').html('обновлено: '+output); 	// replace all existing content
+	});
 }
 
 //////////////////////////////////////////////////////
