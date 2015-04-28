@@ -78,6 +78,9 @@ function loadData() {
 			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
 			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			
+			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
+			
 			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
 			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
 			
