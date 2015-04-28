@@ -13,10 +13,10 @@ function nvl(val1, val2){
 	}
 }
 function getVal(spName){
-	window.localStorage.getItem(spName);
+	return JSON.parse(window.localStorage.getItem(spName));
 }
 function setVal(spName, pValue){
-	return JSON.parse(window.localStorage.setItem(spName,JSON.stringify(pValue)));
+	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
 function loadSavedFlt(){
 	//var params = getSearchParameters();
