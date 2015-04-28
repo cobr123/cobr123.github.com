@@ -13,7 +13,7 @@
 <tbody><tr><td>
 <table border="1" width="100%" cellspacing="0" cellpadding="5" bordercolordark="#000000" bordercolorlight="#FFFFFF">
 <tbody><tr class="trec"><td nowrap="">
-<u><b>Реалм</b></u>&nbsp;<select id="realm" name="realm" onchange="changeRealm(this);">
+<u><b>Реалм</b></u>&nbsp;<select id="realm" name="realm" onchange="changeRealm();">
 <option value="vera" selected="">vera</option>
 <option value="olga">olga</option>
 <option value="anna">anna</option>
@@ -21,10 +21,10 @@
 <option value="mary">mary</option>
 </select>
 <br>
-<select id="id_category" onchange="changeCategory(this);"></select>&nbsp;<div id="products"></div>
+<select id="id_category" onchange="changeCategory();"></select>&nbsp;<div id="products"></div>
 <input type="hidden" id="id_product" name="id_product" value="">
 <br>
-<select id="id_country" onchange="changeCountry(this);"></select>&nbsp;<select id="id_region" onchange="changeRegion(this);"></select>
+<select id="id_country" onchange="changeCountry();"></select>&nbsp;<select id="id_region" onchange="changeRegion();"></select>
 <br>
 <u><b>Объём </b></u> от <input type="text" id="volumeFrom" size="5" maxlength="6" value="1"> до <input type="text" id="volumeTo" size="8" maxlength="8" value="100000000"><br>
 <u><b>Местные, %</b></u> от <input type="text" id="localPercentFrom" size="5" maxlength="6" value="0.00"> до <input type="text" id="localPercentTo" size="5" maxlength="6" value="100.00"><br>
@@ -43,7 +43,7 @@
 <input type="hidden" id="sort_dir" name="sort_dir" value="desc">
 <table id="xtable" border="1" width="100%" cellspacing="0" cellpadding="2" bordercolorlight="#000000" bordercolordark="#FFFFFF">
 <thead><tr class="theader">
-<th rowspan="2" id="th_city">Город</th><th rowspan="2" id="th_idx">Индекс</th><th rowspan="2" id="th_volume">Объём</th>
+<th rowspan="2" id="th_city">Город</th><th rowspan="2" id="th_w_idx">Индекс богатства</th><th rowspan="2" id="th_idx">Индекс</th><th rowspan="2" id="th_volume">Объём</th>
 <th rowspan="2" id="th_local_perc">Местные, %</th>
 <td colspan="2">Местные</td><td colspan="3">Магазины</td>
 </tr>
