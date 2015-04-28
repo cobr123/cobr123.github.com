@@ -32,19 +32,19 @@ function loadSavedFlt(){
 		
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
-			console.log("$('#id_country').childNodes.length = " + $('#id_country').childNodes.length);
+			console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 			//changeCountry();
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
-				console.log("$('#id_region').childNodes.length = " + $('#id_region').childNodes.length);
+				console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 				//changeRegion();
 			}
 		}
-		console.log("$('#id_category').childNodes.length = " + $('#id_category').childNodes.length);
+		console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 		if (id_category == null || id_category == '') return;
 		$('#id_category').val(id_category);
 		
-		console.log("$('#products').childNodes.length = " + $('#products').childNodes.length);
+		console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
 		if (id_product == null || id_product == '') return;
 		changeProduct(id_product);
 	} else {
