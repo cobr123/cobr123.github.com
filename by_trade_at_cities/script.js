@@ -18,6 +18,35 @@ function getVal(spName){
 function setVal(spName, pValue){
 	return JSON.parse(window.localStorage.setItem(spName,JSON.stringify(pValue)));
 }
+function loadSavedFlt(){
+	//var params = getSearchParameters();
+	var realm = getVal('realm');
+	if (realm != null || realm != '') {
+		$('#realm').val(realm);
+		changeRealm();
+		
+		var id_country = getVal('id_country');
+		if (id_country != null || id_country != '') {
+			$('#id_country').val(id_country);
+			changeCountry();
+			var id_region = getVal('id_region');
+			if (id_region != null || id_region != '') {
+				$('#id_region').val(id_region);
+				changeRegion();
+			}
+		}
+		var id_category = getVal('id_category');
+		if (id_category == null || id_category == '') return;
+		$('#id_category').val(id_category);
+		
+		var id_product = getVal('id_product');
+		if (id_product == null || id_product == '') return;
+		changeProduct(id_product);
+	} else {
+		loadProductCategories();
+		loadCountries();
+	}
+}
 
 //////////////////////////////////////////////////////
 function loadData() {
@@ -165,21 +194,21 @@ function loadRegions() {
 	});
 	return false;
 }
-function changeRealm(select) {
+function changeRealm() {
 	loadProductCategories();
 	loadCountries();
 	setVal('realm', getRealm());
 }
-function changeCategory(select) {
+function changeCategory() {
 	loadProducts();
 	setVal('id_category', $('#id_category').val());
 }
-function changeCountry(select) {
+function changeCountry() {
 	loadRegions();
 	loadData();
 	setVal('id_country', $('#id_country').val());
 }
-function changeRegion(select) {
+function changeRegion() {
 	loadData();
 	setVal('id_region', $('#id_region').val());
 }
@@ -210,10 +239,6 @@ function getSearchParameters() {
 
 //////////////////////////////////////////////////////
 $(document).ready(function () { 
-	//var params = getSearchParameters();
-	loadProductCategories();
-	loadCountries();
-	
 	var table = document.getElementById('xtable');
 	var tableHead = table.querySelector('thead');
 		
@@ -231,6 +256,8 @@ $(document).ready(function () {
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
+			setVal('sort_col_id', $('#sort_col_id').val());
+			setVal('sort_dir', $('#sort_dir').val());
 			tinysort(
 					tableBody.querySelectorAll('tr')
 					,{
@@ -240,4 +267,5 @@ $(document).ready(function () {
 			);
 		}
 	});
+	loadSavedFlt();
 });
