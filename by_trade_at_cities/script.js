@@ -21,25 +21,26 @@ function setVal(spName, pValue){
 function loadSavedFlt(){
 	//var params = getSearchParameters();
 	var realm = getVal('realm');
+	var id_country = getVal('id_country');
+	var id_region = getVal('id_region');
+	var id_category = getVal('id_category');
+	var id_product = getVal('id_product');
+	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
 		changeRealm();
 		
-		var id_country = getVal('id_country');
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
 			changeCountry();
-			var id_region = getVal('id_region');
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
 				changeRegion();
 			}
 		}
-		var id_category = getVal('id_category');
 		if (id_category == null || id_category == '') return;
 		$('#id_category').val(id_category);
 		
-		var id_product = getVal('id_product');
 		if (id_product == null || id_product == '') return;
 		changeProduct(id_product);
 	} else {
