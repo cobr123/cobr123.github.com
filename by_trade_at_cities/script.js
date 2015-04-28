@@ -74,42 +74,42 @@ function loadData() {
 		$.each(data, function (key, val) {
 			var suitable = true;
 			
-			if (suitable && val.productId == $('#id_product').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.countryId == nvl($('#id_country').val(),val.countryId)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.regionId == nvl($('#id_region').val(),val.regionId)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
+			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.volume >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.volume <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.localPercent >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.localPercent <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.localPrice >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.localPrice <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.localQuality >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.localQuality <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.shopPrice >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.shopPrice <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.shopQuality >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.shopQuality <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.sq >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.sq <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
 			
-			if (suitable && val.shopBrand >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.shopBrand <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.sb >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
 			
 			if(suitable){
 				output += '<tr class="trec">';
-				output += '<td id="td_city"><a href="http://virtonomica.ru/olga/main/globalreport/marketing/by_trade_at_cities/'+val.productId+'/'+val.countryId+'/'+val.regionId+'/'+val.cityId+'">'+val.cityCaption+'</a></td>';
-				output += '<td align="center" id="td_idx">'+val.marketIdx+'</td>';
-				output += '<td align="right" id="td_volume">'+val.volume+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+val.localPercent+'</td>';
-				output += '<td align="right" id="td_local_price">'+val.localPrice+'</td>';
-				output += '<td align="right" id="td_local_quality">'+val.localQuality+'</td>';
-				output += '<td align="right" id="td_shop_price">'+val.shopPrice+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+val.shopQuality+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+val.shopBrand+'</td>';
+				output += '<td id="td_city"><a href="http://virtonomica.ru/olga/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
+				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
+				output += '<td align="right" id="td_volume">'+val.v+'</td>';
+				output += '<td align="right" id="td_local_perc" style="color:black">'+val.lpe+'</td>';
+				output += '<td align="right" id="td_local_price">'+val.lpr+'</td>';
+				output += '<td align="right" id="td_local_quality">'+val.lq+'</td>';
+				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
+				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
+				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
 				output += '</tr>';
 			}
 		});
@@ -139,7 +139,7 @@ function loadProductCategories(callback) {
 		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.caption+'">'+val.caption+'</option>';
+			output += '<option value="'+val.c+'">'+val.c+'</option>';
 		});
 		
 		$('#id_category').html(output); 	// replace all existing content
@@ -160,12 +160,12 @@ function loadProducts(callback) {
 		var selected = $('#id_product').attr('value');
 		
 		$.each(data, function (key, val) {
-			if(svCategoryId == val.productCategory){
-				output += '&nbsp;<img src="http://virtonomica.ru'+val.imgUrl+'"';
-				if(selected != null && selected == val.id){
+			if(svCategoryId == val.pc){
+				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
+				if(selected != null && selected == val.i){
 					output += ' border="1"';
 				}
-				output += ' width="24" height="24" id="img'+val.id+'" title="'+val.caption+'" style="cursor:pointer" onclick="changeProduct('+val.id+')">';
+				output += ' width="24" height="24" id="img'+val.i+'" title="'+val.c+'" style="cursor:pointer" onclick="changeProduct('+val.i+')">';
 			}
 		});
 		
@@ -182,7 +182,7 @@ function loadCountries(callback) {
 		var output = '<option value="" selected=""></option>';
 
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.id+'">'+val.caption+'</option>';
+			output += '<option value="'+val.i+'">'+val.c+'</option>';
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
@@ -202,8 +202,8 @@ function loadRegions(callback) {
 		var output = '<option value="" selected=""></option>';
 		
 		$.each(data, function (key, val) {
-			if(val.countryId == svCountryId){
-				output += '<option value="'+val.id+'">'+val.caption+'</option>';
+			if(val.ci == svCountryId){
+				output += '<option value="'+val.i+'">'+val.c+'</option>';
 			}
 		});
 		
