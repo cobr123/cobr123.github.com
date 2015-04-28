@@ -28,25 +28,31 @@ function loadSavedFlt(){
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
-		changeRealm();
-		
-		if (id_country != null || id_country != '') {
-			$('#id_country').val(id_country);
-			console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-			//changeCountry();
-			if (id_region != null || id_region != '') {
-				$('#id_region').val(id_region);
-				console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-				//changeRegion();
+		var loadProductsCallback = function() {
+			console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
+			if (id_product == null || id_product == '') return;
+			changeProduct(id_product);
+		};
+		var productCategoriesCallback = function() {
+			console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
+			if (id_category == null || id_category == '') return;
+			$('#id_category').val(id_category);
+			loadProducts(loadProductsCallback);
+  		};
+		var countryCallback = function() {
+			if (id_country != null || id_country != '') {
+				$('#id_country').val(id_country);
+				console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
+				//changeCountry();
+				if (id_region != null || id_region != '') {
+					$('#id_region').val(id_region);
+					console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+					//changeRegion();
+				}
 			}
-		}
-		console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
-		if (id_category == null || id_category == '') return;
-		$('#id_category').val(id_category);
+  		};
+		changeRealm(productCategoriesCallback, countryCallback);
 		
-		console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
-		if (id_product == null || id_product == '') return;
-		changeProduct(id_product);
 	} else {
 		loadProductCategories();
 		loadCountries();
@@ -123,7 +129,7 @@ function loadData() {
 	return false;
 }
 
-function loadProductCategories() {
+function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
@@ -136,10 +142,11 @@ function loadProductCategories() {
 		
 		$('#id_category').html(output); 	// replace all existing content
 		$('#products').html(''); 
+		if(callback != null) callback();
 	});
 	return false;
 }
-function loadProducts() {
+function loadProducts(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
@@ -161,10 +168,11 @@ function loadProducts() {
 		});
 		
 		$('#products').html(output); 	// replace all existing content
+		if(callback != null) callback();
 	});
 	return false;
 }
-function loadCountries() {
+function loadCountries(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
@@ -176,10 +184,11 @@ function loadCountries() {
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
+		if(callback != null) callback();
 	});
 	return false;
 }
-function loadRegions() {
+function loadRegions(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
@@ -196,20 +205,21 @@ function loadRegions() {
 		});
 		
 		$('#id_region').html(output); 	// replace all existing content
+		if(callback != null) callback();
 	});
 	return false;
 }
-function changeRealm() {
-	loadProductCategories();
-	loadCountries();
+function changeRealm(productCategoriesCallback, countryCallback) {
+	loadProductCategories(productCategoriesCallback);
+	loadCountries(countryCallback);
 	setVal('realm', getRealm());
 }
-function changeCategory() {
-	loadProducts();
+function changeCategory(callback) {
+	loadProducts(callback);
 	setVal('id_category', $('#id_category').val());
 }
-function changeCountry() {
-	loadRegions();
+function changeCountry(callback) {
+	loadRegions(callback);
 	loadData();
 	setVal('id_country', $('#id_country').val());
 }
