@@ -32,17 +32,17 @@ function loadSavedFlt(){
 		
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
-			changeCountry();
+			window.setTimeout(changeCountry, 1000);
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
-				changeRegion();
+				window.setTimeout(changeRegion, 1000);
 			}
 		}
 		if (id_category == null || id_category == '') return;
-		$('#id_category').val(id_category);
+		window.setTimeout($('#id_category').val(id_category), 1000);
 		
 		if (id_product == null || id_product == '') return;
-		changeProduct(id_product);
+		window.setTimeout(changeProduct(id_product), 1000);
 	} else {
 		loadProductCategories();
 		loadCountries();
