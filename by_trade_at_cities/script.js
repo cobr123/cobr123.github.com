@@ -32,15 +32,19 @@ function loadSavedFlt(){
 		
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
+			console.log(id_country);
 			//changeCountry();
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
+				console.log(id_region);
 				//changeRegion();
 			}
 		}
+		console.log(id_category);
 		if (id_category == null || id_category == '') return;
 		$('#id_category').val(id_category);
 		
+		console.log(id_product);
 		if (id_product == null || id_product == '') return;
 		changeProduct(id_product);
 	} else {
