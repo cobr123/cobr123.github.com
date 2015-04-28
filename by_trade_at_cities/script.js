@@ -262,7 +262,6 @@ function getSearchParameters() {
       return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 function fillUpdateDate() {
-	$('#update_date').val('выберите реалм');
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
@@ -273,7 +272,7 @@ function fillUpdateDate() {
 			output = val.d;
 		});
 		
-		$('#update_date').html('обновлено: '+output); 	// replace all existing content
+		$('#update_date').val('обновлено: '+output); 	// replace all existing content
 	});
 }
 
