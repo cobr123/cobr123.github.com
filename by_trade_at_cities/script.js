@@ -32,22 +32,18 @@ function loadSavedFlt(){
 		
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
-			while(document.getElementById('id_country').childNodes.length == 0) {}
 			console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
 			//changeCountry();
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
-				while(document.getElementById('id_region').childNodes.length == 0) {}
 				console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
 				//changeRegion();
 			}
 		}
-		while(document.getElementById('id_category').childNodes.length == 0) {}
 		console.log("$('#id_category').childNodes.length = " + document.getElementById('id_category').childNodes.length);
 		if (id_category == null || id_category == '') return;
 		$('#id_category').val(id_category);
 		
-		while(document.getElementById('products').childNodes.length == 0) {}
 		console.log("$('#products').childNodes.length = " + document.getElementById('products').childNodes.length);
 		if (id_product == null || id_product == '') return;
 		changeProduct(id_product);
