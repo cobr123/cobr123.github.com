@@ -39,10 +39,10 @@ function loadSavedFlt(){
 			}
 		}
 		if (id_category == null || id_category == '') return;
-		window.setTimeout($('#id_category').val(id_category), 1000);
+		$('#id_category').val(id_category);
 		
 		if (id_product == null || id_product == '') return;
-		window.setTimeout(changeProduct(id_product), 1000);
+		changeProduct(id_product);
 	} else {
 		loadProductCategories();
 		loadCountries();
