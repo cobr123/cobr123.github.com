@@ -12,6 +12,13 @@ function nvl(val1, val2){
 		return val1;
 	}
 }
+function getVal(spName){
+	window.localStorage.getItem(spName);
+}
+function setVal(spName, pValue){
+	return JSON.parse(window.localStorage.setItem(spName,JSON.stringify(pValue)));
+}
+
 //////////////////////////////////////////////////////
 function loadData() {
 	var realm = getRealm();
@@ -161,16 +168,20 @@ function loadRegions() {
 function changeRealm(select) {
 	loadProductCategories();
 	loadCountries();
+	setVal('realm', getRealm());
 }
 function changeCategory(select) {
 	loadProducts();
+	setVal('id_category', $('#id_category').val());
 }
 function changeCountry(select) {
 	loadRegions();
 	loadData();
+	setVal('id_country', $('#id_country').val());
 }
 function changeRegion(select) {
 	loadData();
+	setVal('id_region', $('#id_region').val());
 }
 function changeProduct(productId) {
 	var selected = $('#id_product').val();
@@ -180,6 +191,7 @@ function changeProduct(productId) {
 	$('#img'+productId).attr('border','1');
 	$('#id_product').val(productId);
 	loadData();
+	setVal('id_product', $('#id_product').val());
 }
 
 function transformToAssocArray( prmstr ) {
