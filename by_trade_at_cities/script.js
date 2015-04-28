@@ -186,6 +186,7 @@ function loadCountries(callback) {
 		});
 		
 		$('#id_country').html(output); 	// replace all existing content
+		$('#id_region').html(''); 	// replace all existing content
 		if(callback != null) callback();
 	});
 	return false;
@@ -221,6 +222,7 @@ function changeCategory(callback) {
 	setVal('id_category', $('#id_category').val());
 }
 function changeCountry(callback) {
+	$('#id_region').html(''); 	// replace all existing content
 	loadRegions(callback);
 	loadData();
 	setVal('id_country', $('#id_country').val());
