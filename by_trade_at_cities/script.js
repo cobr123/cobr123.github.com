@@ -266,13 +266,7 @@ function fillUpdateDate() {
 	if (realm == null || realm == '') return;
 	
 	$.getJSON('./'+realm+'/updateDate.json', function (data) {
-		var output = '';
-
-		$.each(data, function (key, val) {
-			output = val.d;
-		});
-		
-		$('#update_date').val('обновлено: '+output); 	// replace all existing content
+		$('#update_date').val('обновлено: ' + data.d); 	// replace all existing content
 	});
 }
 
