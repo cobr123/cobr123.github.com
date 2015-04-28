@@ -32,10 +32,10 @@ function loadSavedFlt(){
 		
 		if (id_country != null || id_country != '') {
 			$('#id_country').val(id_country);
-			window.setTimeout(changeCountry, 1000);
+			//changeCountry();
 			if (id_region != null || id_region != '') {
 				$('#id_region').val(id_region);
-				window.setTimeout(changeRegion, 1000);
+				//changeRegion();
 			}
 		}
 		if (id_category == null || id_category == '') return;
