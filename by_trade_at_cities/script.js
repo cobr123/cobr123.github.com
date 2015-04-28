@@ -39,16 +39,18 @@ function loadSavedFlt(){
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
   		};
+		var changeCountryCallback = function() {
+			if (id_region != null || id_region != '') {
+				$('#id_region').val(id_region);
+				console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
+				changeRegion();
+			}
+  		};
 		var countryCallback = function() {
 			if (id_country != null || id_country != '') {
 				$('#id_country').val(id_country);
 				console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-				//changeCountry();
-				if (id_region != null || id_region != '') {
-					$('#id_region').val(id_region);
-					console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-					//changeRegion();
-				}
+				changeCountry(changeCountryCallback);
 			}
   		};
 		changeRealm(productCategoriesCallback, countryCallback);
