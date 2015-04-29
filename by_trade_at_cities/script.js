@@ -262,6 +262,7 @@ function getSearchParameters() {
       return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
 }
 function fillUpdateDate() {
+	$('#update_date').val(''); 	// replace all existing content
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
