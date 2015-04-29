@@ -281,15 +281,19 @@ $(document).ready(function () {
 		var tableHeader = e.target;
 		var isAscending;
 		var order;
+		var orderArrow;
 		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
 			order = isAscending?'desc':'asc';
+			orderArrow = isAscending?'&#9650;':'&#9650;';
 			tableHeader.setAttribute('data-order',order);
+			$('#sort_by_'+$('#sort_col_id').val()).val('');
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
+			$('#sort_by_'+tableHeaderId).val(orderArrow);
 			setVal('sort_col_id', $('#sort_col_id').val());
 			setVal('sort_dir', $('#sort_dir').val());
 			tinysort(
