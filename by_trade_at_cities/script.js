@@ -123,6 +123,11 @@ function loadData() {
 		
 		var svOrder = $('#sort_dir').val();
 		var svColId = $('#sort_col_id').val();
+		var isAscending = svOrder=='asc';
+		var orderArrow = isAscending?'&#9660;':'&#9650;';
+		 $('#sort_by_'+svColId).html(orderArrow);
+		 console.log(orderArrow);
+		 console.log('#sort_by_'+svColId);
 		var table = document.getElementById('xtable');
 		var tableBody = table.querySelector('tbody');
 		tinysort(
@@ -132,9 +137,6 @@ function loadData() {
 						,order: svOrder
 				}
 		);
-		var isAscending = svOrder=='asc';
-		var orderArrow = isAscending?'&#9660;':'&#9650;';
-		 $('#sort_by_'+svColId).html(orderArrow);
 	});
 	return false;
 }
