@@ -290,10 +290,10 @@ $(document).ready(function () {
 			order = isAscending?'desc':'asc';
 			orderArrow = isAscending?'&#9660;':'&#9650;';
 			tableHeader.setAttribute('data-order',order);
-			$('#sort_by_'+$('#sort_col_id').val()).val('');
+			$('#sort_by_'+$('#sort_col_id').val()).html('');
 			$('#sort_col_id').val(tableHeaderId);
 			$('#sort_dir').val(order);
-			$('#sort_by_'+tableHeaderId).val(orderArrow);
+			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			setVal('sort_col_id', $('#sort_col_id').val());
 			setVal('sort_dir', $('#sort_dir').val());
 			tinysort(
