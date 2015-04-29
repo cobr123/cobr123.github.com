@@ -125,9 +125,8 @@ function loadData() {
 		var svColId = $('#sort_col_id').val();
 		var isAscending = svOrder=='asc';
 		var orderArrow = isAscending?'&#9660;':'&#9650;';
-		 $('#sort_by_'+svColId).html(orderArrow);
-		 console.log(orderArrow);
-		 console.log('#sort_by_'+svColId);
+		$('#sort_by_'+svColId).html(orderArrow);
+		 
 		var table = document.getElementById('xtable');
 		var tableBody = table.querySelector('tbody');
 		tinysort(
@@ -298,6 +297,8 @@ $(document).ready(function () {
 			$('#sort_dir').val(order);
 			setVal('sort_col_id', $('#sort_col_id').val());
 			setVal('sort_dir', $('#sort_dir').val());
+			var orderArrow = isAscending?'&#9660;':'&#9650;';
+			$('#sort_by_'+svColId).html(orderArrow);
 			tinysort(
 					tableBody.querySelectorAll('tr')
 					,{
