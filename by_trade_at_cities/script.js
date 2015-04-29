@@ -286,6 +286,8 @@ $(document).ready(function () {
 		var isAscending;
 		var order;
 		
+		if(tableHeader.nodeName!=='TH') return;
+		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
 			//console.log(tableHeaderId);
