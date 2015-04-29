@@ -132,7 +132,8 @@ function loadData() {
 						,order: svOrder
 				}
 		);
-		var orderArrow = (svOrder=='asc')?'&#9660;':'&#9650;';
+		var isAscending = svOrder=='asc';
+		var orderArrow = isAscending?'&#9660;':'&#9650;';
 		 $('#sort_by_'+svColId).html(orderArrow);
 	});
 	return false;
