@@ -286,7 +286,9 @@ $(document).ready(function () {
 		var isAscending;
 		var order;
 		
-		if(tableHeader.nodeName!=='TH') return;
+		while (tableHeader.nodeName!=='TH') {
+				tableHeader = tableHeader.parentNode;
+		}
 		
 		var tableHeaderId = tableHeader.getAttribute('id').substr(3);
 		if (tableHeaderId != null && tableHeaderId != '') {
