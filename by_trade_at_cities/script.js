@@ -288,7 +288,7 @@ $(document).ready(function () {
 			//console.log(tableHeaderId);
 			isAscending = tableHeader.getAttribute('data-order')=='asc';
 			order = isAscending?'desc':'asc';
-			orderArrow = isAscending?'&#9650;':'&#9650;';
+			orderArrow = isAscending?'&#9660;':'&#9650;';
 			tableHeader.setAttribute('data-order',order);
 			$('#sort_by_'+$('#sort_col_id').val()).val('');
 			$('#sort_col_id').val(tableHeaderId);
