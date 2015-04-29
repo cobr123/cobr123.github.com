@@ -298,7 +298,7 @@ $(document).ready(function () {
 			setVal('sort_col_id', $('#sort_col_id').val());
 			setVal('sort_dir', $('#sort_dir').val());
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
-			$('#sort_by_'+svColId).html(orderArrow);
+			$('#sort_by_'+tableHeaderId).html(orderArrow);
 			tinysort(
 					tableBody.querySelectorAll('tr')
 					,{
