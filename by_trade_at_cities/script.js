@@ -124,7 +124,7 @@ function loadData() {
 		var svOrder = $('#sort_dir').val();
 		var svColId = $('#sort_col_id').val();
 		var isAscending = svOrder=='asc';
-		var orderArrow = isAscending?'&#9660;':'&#9650;';
+		var orderArrow = isAscending?'&#9650;':'&#9660;';
 		$('#sort_by_'+svColId).html(orderArrow);
 		 
 		var table = document.getElementById('xtable');
