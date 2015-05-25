@@ -313,7 +313,7 @@ function loadRecipe() {
 	});
 }
 function loadData() {
-	$('#xtabletbody').html(''); 	// replace all existing content
+	tableCache = [];
 	/*
 	- загрузить рецепт
 	- для каждого ингридиента загрузить остатки
