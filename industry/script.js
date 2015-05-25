@@ -63,7 +63,10 @@ function addToResultCache(val){
 	if (suitable && val.cost <= $('#costTo').val()) {suitable = true;} else {suitable = false;}
 	
 	if(suitable){
-		tableCache.push(val);
+		var existed = tableCache[val.quality];
+		if(existed == null || existed.cost > val.cost){
+			tableCache[val.quality] = val;
+		}
 	}
 }
 function sortTable(){
