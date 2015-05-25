@@ -140,6 +140,7 @@ function calcResult(recipe, materials, tech) {
 				IngTotalCost = 0;
 				
 	recipe.ip.forEach(function(ingredient) {
+	console.log('ingredient.q = ' + ingredient.q);
 		ingBaseQty.push(ingredient.q || 0);
 	});
 	materials.forEach(function(material){
@@ -169,6 +170,7 @@ function calcResult(recipe, materials, tech) {
 	//количество ингридиентов
 	for (var i = 0; i < num; i++) {
 		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
+	console.log('ingQuantity[i] = ' + ingQuantity[i]);
 	}
 	//цена ингридиентов
 	for (var i = 0; i < num; i++) {
@@ -190,7 +192,7 @@ function calcResult(recipe, materials, tech) {
 	var IngTotalQual = 0;
 	var IngTotalQty = 0;
 	for (var i = 0; i < num; i++) {
-		IngTotalQual+= ingQual[i]*ingBaseQty[i];
+		IngTotalQual+= ingQual[i] * ingBaseQty[i];
 		IngTotalQty += ingBaseQty[i];
 	};
 	IngTotalQual = IngTotalQual/IngTotalQty*eff;	
@@ -201,10 +203,8 @@ function calcResult(recipe, materials, tech) {
 	//ограничение качества (по технологии)
 	if (ProdQual > Math.pow(tech, 1.3) ) {ProdQual = Math.pow(tech, 1.3)}
 	if ( ProdQual < 1 ) { ProdQual = 1 }	
-	console.log('ProdQual = ' + ProdQual);
 	//бонус к качеству
 	ProdQual = ProdQual * ( 1 + recipe.rp[0].qbp / 100 );
-	console.log('ProdQual.toFixed(2) = ' + ProdQual.toFixed(2));
 	//$("#ProdQual", this).text( ProdQual.toFixed(2) ) ;
 	result.quality = ProdQual.toFixed(2);
 	
