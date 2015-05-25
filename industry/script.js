@@ -71,7 +71,9 @@ function calcProduction(recipe) {
 		}
 		remains.push(material_remains[ingridient.pi]);
 	});
+	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
+	console.log('cartesianProduct result materials.length = ' + materials.length);
 	calcResult(recipe, materials);
 }
 function loadRemains(recipe, productID) {
@@ -79,6 +81,7 @@ function loadRemains(recipe, productID) {
 	if (realm == null || realm == '') return;
 	if (productID == null || productID == '') return;
 	
+	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
 		remains.forEach(function(remain) {
 			if(material_remains[productID] == null){
