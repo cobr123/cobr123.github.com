@@ -197,13 +197,14 @@ function calcResult(recipe, materials, tech) {
 	
 	//качество товара
 	var ProdQual = Math.pow(IngTotalQual, 0.5) * Math.pow(tech, 0.65);
+	console.log('ProdQual = ' + ProdQual);
 	//ограничение качества (по технологии)
 	if (ProdQual > Math.pow(tech, 1.3) ) {ProdQual = Math.pow(tech, 1.3)}
 	if ( ProdQual < 1 ) { ProdQual = 1 }	
+	console.log('ProdQual = ' + ProdQual);
 	//бонус к качеству
 	ProdQual = ProdQual * ( 1 + recipe.rp[0].qbp / 100 );
-	console.log('recipe.rp = ' + recipe.rp);
-	console.log('recipe.rp[0].qbp = ' + recipe.rp[0].qbp);
+	console.log('ProdQual.toFixed(2) = ' + ProdQual.toFixed(2));
 	//$("#ProdQual", this).text( ProdQual.toFixed(2) ) ;
 	result.quality = ProdQual.toFixed(2);
 	
