@@ -91,6 +91,7 @@ function sortTable(){
 var sagMaterialImg = [];
 function updateTableFromCache(){
 	var output = '';
+	$('#xtabletbody').html(''); 	// replace all existing content
 	
 	tableCache.forEach(function(val){
 		output += '<tr class="trec">';
