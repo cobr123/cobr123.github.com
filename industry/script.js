@@ -143,7 +143,7 @@ function calcResult(recipe, materials, tech) {
 	});
 	var num = ingQual.length;
 	var eff = 1;
-	var Sale_Price	= $("#salePrice", this).val();
+	var Sale_Price = $("#salePrice", this).val() || 0;
 	//количество товаров производимых 1 человеком
 	var prodbase_quan   = recipe.rp[0].pbq;
 	//var prodbase_quan2  = recipe.rp[1].pbq || 0;
