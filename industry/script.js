@@ -253,6 +253,7 @@ function calcProduction(recipe) {
 	var techTo = $("#techTo", this).val() || techFrom;
 	for (tech = techFrom; tech <= techTo; tech++) { 
 		var result = calcResult(recipe, materials, tech);
+		console.log('result = ' + result);
 		addToResultCache(result);
 	}
 	var tmp = [];
