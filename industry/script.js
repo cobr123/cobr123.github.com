@@ -21,8 +21,6 @@ function setVal(spName, pValue){
 function loadSavedFlt(){
 	//var params = getSearchParameters();
 	var realm = getVal('realm');
-	var id_country = getVal('id_country');
-	var id_region = getVal('id_region');
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 	
@@ -39,25 +37,10 @@ function loadSavedFlt(){
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
   		};
-		var changeCountryCallback = function() {
-			if (id_region != null || id_region != '') {
-				$('#id_region').val(id_region);
-				//console.log("$('#id_region').childNodes.length = " + document.getElementById('id_region').childNodes.length);
-				changeRegion();
-			}
-  		};
-		var countryCallback = function() {
-			if (id_country != null || id_country != '') {
-				$('#id_country').val(id_country);
-				//console.log("$('#id_country').childNodes.length = " + document.getElementById('id_country').childNodes.length);
-				changeCountry(changeCountryCallback);
-			}
-  		};
 		changeRealm(productCategoriesCallback, countryCallback);
 		
 	} else {
 		loadProductCategories();
-		loadCountries();
 		fillUpdateDate();
 	}
 }
@@ -120,17 +103,14 @@ function loadRecipe() {
 	});
 }
 function loadData() {
-	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	var productID = getProductID();
-	if (productID == null || productID == '') return;
-	
 	/*
 	- загрузить рецепт
 	- для каждого ингридиента загрузить остатки
 	- посчитать производимую продукцию
 	- применить фильтр и если подошло записать в таблицу результатов
 	*/
+	loadRecipe();
+	/*
 	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
 		var output = '';
 
@@ -198,7 +178,7 @@ function loadData() {
 						,order: svOrder
 				}
 		);
-	});
+	});*/
 	return false;
 }
 
@@ -206,15 +186,18 @@ function loadProductCategories(callback) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	
-	$.getJSON('./'+realm+'/product_categories.json', function (data) {
+	$.getJSON('./'+realm+'/materials.json', function (data) {
 		var output = '<option value="" selected=""></option>';
-
+		var categories = [];
 		$.each(data, function (key, val) {
-			output += '<option value="'+val.c+'">'+val.c+'</option>';
+			if(categories[val.pc] == null){
+				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
+				categories[val.pc] = 1;
+			}
 		});
 		
 		$('#id_category').html(output); 	// replace all existing content
-		$('#products').html(''); 
+		$('#materials').html(''); 
 		if(callback != null) callback();
 	});
 	return false;
@@ -226,7 +209,7 @@ function loadProducts(callback) {
 	var svCategoryId = $('#id_category').val();
 	if (svCategoryId == null || svCategoryId == '') return;
 	
-	$.getJSON('./'+realm+'/products.json', function (data) {
+	$.getJSON('./'+realm+'/materials.json', function (data) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
@@ -240,68 +223,19 @@ function loadProducts(callback) {
 			}
 		});
 		
-		$('#products').html(output); 	// replace all existing content
-		if(callback != null) callback();
-	});
-	return false;
-}
-function loadCountries(callback) {
-	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	
-	$.getJSON('./'+realm+'/countries.json', function (data) {
-		var output = '<option value="" selected=""></option>';
-
-		$.each(data, function (key, val) {
-			output += '<option value="'+val.i+'">'+val.c+'</option>';
-		});
-		
-		$('#id_country').html(output); 	// replace all existing content
-		$('#id_region').html(''); 	// replace all existing content
-		if(callback != null) callback();
-	});
-	return false;
-}
-function loadRegions(callback) {
-	var realm = getRealm();
-	if (realm == null || realm == '') return;
-	
-	var svCountryId = $('#id_country').val();
-	if (svCountryId == null || svCountryId == '') return;
-	
-	$.getJSON('./'+realm+'/regions.json', function (data) {
-		var output = '<option value="" selected=""></option>';
-		
-		$.each(data, function (key, val) {
-			if(val.ci == svCountryId){
-				output += '<option value="'+val.i+'">'+val.c+'</option>';
-			}
-		});
-		
-		$('#id_region').html(output); 	// replace all existing content
+		$('#materials').html(output); 	// replace all existing content
 		if(callback != null) callback();
 	});
 	return false;
 }
 function changeRealm(productCategoriesCallback, countryCallback) {
 	loadProductCategories(productCategoriesCallback);
-	loadCountries(countryCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
 }
 function changeCategory(callback) {
 	loadProducts(callback);
 	setVal('id_category', $('#id_category').val());
-}
-function changeCountry(callback) {
-	$('#id_region').html(''); 	// replace all existing content
-	loadRegions(callback);
-	loadData();
-	setVal('id_country', $('#id_country').val());
-}
-function changeRegion() {
-	loadData();
-	setVal('id_region', $('#id_region').val());
 }
 function changeProduct(productId) {
 	var selected = $('#id_product').val();
