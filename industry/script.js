@@ -56,11 +56,11 @@ var tableCache = [];
 function addToResultCache(val){
 	var suitable = true;
 	
-	if (suitable && val.quality >= $('#qualityFrom').val()) {suitable = true;} else {suitable = false;}
-	if (suitable && val.quality <= $('#qualityTo').val()) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	
-	if (suitable && val.cost >= $('#costFrom').val()) {suitable = true;} else {suitable = false;}
-	if (suitable && val.cost <= $('#costTo').val()) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost >= parseFloat($('#costFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost <= parseFloat($('#costTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	
 	if(suitable){
 		var existed = tableCache[val.quality];
@@ -273,8 +273,8 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			if (suitable && remain.r >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && remain.r <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.r >= parseFloat($('#volumeFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.r <= parseFloat($('#volumeTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if(suitable){
 				material_remains[productID].push({
