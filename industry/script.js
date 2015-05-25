@@ -264,6 +264,9 @@ function calcProduction(recipe) {
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
 	tableCache = tmp;
+	tableCache.sort(function(a,b) { return a.cost - b.cost } );
+	fruits.splice(100);
+	
 	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
 	updateTableFromCache();
 }
