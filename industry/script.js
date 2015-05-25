@@ -140,7 +140,6 @@ function calcResult(recipe, materials, tech) {
 				IngTotalCost = 0;
 				
 	recipe.ip.forEach(function(ingredient) {
-	console.log('ingredient.q = ' + ingredient.q);
 		ingBaseQty.push(ingredient.q || 0);
 	});
 	materials.forEach(function(material){
@@ -257,12 +256,10 @@ function calcProduction(recipe) {
 	var techFrom = $("#techFrom", this).val() || 10;
 	var techTo = $("#techTo", this).val() || techFrom;
 	for (tech = techFrom; tech <= techTo; tech++) { 
-		var result = calcResult(recipe, materials, tech);
-		addToResultCache(result);
-		console.log('qualityFrom = ' + parseFloat($("#qualityFrom").val().replace(',', '.'),10));
-		console.log('qualityTo = ' + parseFloat($("#qualityTo").val().replace(',', '.'),10));
-		console.log('costFrom = ' + parseFloat($("#costFrom").val().replace(',', '.'),10));
-		console.log('costTo = ' + parseFloat($("#costTo").val().replace(',', '.'),10));
+		materials.forEach(function(mats) {
+			var result = calcResult(recipe, mats, tech);
+			addToResultCache(result);
+		});
 	}
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
