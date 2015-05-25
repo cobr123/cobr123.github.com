@@ -89,9 +89,8 @@ function sortTable(){
 var sagMaterialImg = [];
 function updateTableFromCache(){
 	var output = '';
-	 
-	for (var key in tableCache) {
-		var val = tableCache[key];
+	
+	tableCache.forEach(function(val){
 		output += '<tr class="trec">';
 		output += '<td align="center">'+val.spec+'</td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
@@ -110,7 +109,7 @@ function updateTableFromCache(){
 		output += '<td align="center" id="td_cost">'+val.cost+'</td>';
 		output += '<td align="center" id="td_profit">'+val.profit+'</td>';
 		output += '</tr>';
-	}
+	});
 	$('#xtabletbody').html(output); 	// replace all existing content
 	sortTable();
 }
@@ -253,6 +252,9 @@ function calcProduction(recipe) {
 		var result = calcResult(recipe, materials, tech);
 		addToResultCache(result);
 	}
+	var tmp = [];
+	for (var key in tableCache) tmp.push(tableCache[key]);
+	tableCache = tmp;
 	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
 	updateTableFromCache();
 }
