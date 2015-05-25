@@ -143,13 +143,13 @@ function calcResult(recipe, materials, tech) {
 	});
 	var num = ingQual.length;
 	var eff = 1;
-	var Sale_Price = $("#salePrice", this).val() || 0;
+	var Sale_Price = parceFloat($("#salePrice").val(),10) || 0;
 	//количество товаров производимых 1 человеком
 	var prodbase_quan   = recipe.rp[0].pbq;
 	//var prodbase_quan2  = recipe.rp[1].pbq || 0;
 	
-	var work_quant	= $("#workQuan", this).val() || 10000;
-	var work_salary	= $("#workSalary", this).val().replace(',', '.') || 300;
+	var work_quant	= parceFloat($("#workQuan").val(),10) || 10000;
+	var work_salary	= parceFloat($("#workSalary").val().replace(',', '.'),10) || 300;
 	
 	//квалификация работников
 	var PersonalQual = Math.pow(tech, 0.8);
