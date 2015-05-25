@@ -66,14 +66,22 @@ function cartesianProduct(a) { // a = array of array
 }
 function calcProduction(recipe) {
 	var remains = [];
+	var allExists = true;
 	recipe.ip.forEach(function(ingredient) {
-		if (material_remains[ingredient.pi] == null || material_remains[ingredient.pi].length == 0) {
-			console.log('calcProduction not all ingredients has remains');
-			return;
+		if(allExists){
+			if (material_remains[ingredient.pi] == null || material_remains[ingredient.pi].length == 0) {
+				allExists = false;
+			} else {
+				remains.push(material_remains[ingredient.pi]);
+			}
 		}
-		remains.push(material_remains[ingredient.pi]);
 	});
 	console.log('cartesianProduct for remains.length = ' + remains.length);
+	if (!allExists){
+		console.log('calcProduction not all ingredients has remains');
+		return;
+	}
+	
 	materials = cartesianProduct(remains);
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	calcResult(recipe, materials);
