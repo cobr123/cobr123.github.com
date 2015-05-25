@@ -65,11 +65,12 @@ function cartesianProduct(a) { // a = array of array
 }
 function calcProduction(recipe) {
 	var remains = [];
-	recipe.ip.forEach(function(ingridient) {
-		if (material_remains[ingridient.pi] == null || material_remains[ingridient.pi].length == 0) {
+	recipe.ip.forEach(function(ingredient) {
+		if (material_remains[ingredient.pi] == null || material_remains[ingredient.pi].length == 0) {
+			console.log('calcProduction not all ingredients has remains');
 			return;
 		}
-		remains.push(material_remains[ingridient.pi]);
+		remains.push(material_remains[ingredient.pi]);
 	});
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
@@ -102,8 +103,8 @@ function loadRecipe() {
 	console.log('load ./'+realm+'/recipe_'+productID+'.json');
 	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
 		recipes.forEach(function(recipe) {
-			recipe.ip.forEach(function(ingridient) {
-				loadRemains(recipe, ingridient.pi);
+			recipe.ip.forEach(function(ingredient) {
+				loadRemains(recipe, ingredient.pi);
 			});
 		});
 	});
