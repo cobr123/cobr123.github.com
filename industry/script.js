@@ -55,15 +55,15 @@ function commaSeparateNumber(val){
 var tableCache = [];
 function addToResultCache(val){
 	var suitable = true;
-		console.log('val.quality = ' + val.quality);
-		console.log('val.cost = ' + val.cost);
-	/*
+	console.log('val.quality = ' + val.quality);
+	console.log('val.cost = ' + val.cost);
+	
 	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	
 	if (suitable && val.cost >= parseFloat($('#costFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.cost <= parseFloat($('#costTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
-	*/
+	
 	if(suitable){
 		var existed = tableCache[val.quality];
 		if(existed == null || existed.cost > val.cost){
@@ -101,7 +101,7 @@ function updateTableFromCache(){
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
 		val.materials.forEach(function(mat){
-			svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
+			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
 			svMaterialsQual += '<td align="center">'+mat.quality+'</td>';
 			svMaterialsPrice += '<td align="center">'+mat.price+'</td>';
 		});
@@ -256,6 +256,10 @@ function calcProduction(recipe) {
 	for (tech = techFrom; tech <= techTo; tech++) { 
 		var result = calcResult(recipe, materials, tech);
 		addToResultCache(result);
+		console.log('qualityFrom = ' + parseFloat($("#qualityFrom").val().replace(',', '.'),10));
+		console.log('qualityTo = ' + parseFloat($("#qualityTo").val().replace(',', '.'),10));
+		console.log('costFrom = ' + parseFloat($("#costFrom").val().replace(',', '.'),10));
+		console.log('costTo = ' + parseFloat($("#costFrom").val().replace(',', '.'),10));
 	}
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
