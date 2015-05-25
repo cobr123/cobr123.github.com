@@ -65,7 +65,7 @@ function cartesianProduct(a) { // a = array of array
 }
 function calcProduction(recipe) {
 	var remains = [];
-	$.each(recipe.ip, function (ingridient) {
+	recipe.ip.forEach(function(ingridient) {
 		if (material_remains[ingridient.pi] == null || material_remains[ingridient.pi].length == 0) {
 			return;
 		}
@@ -80,7 +80,7 @@ function loadRemains(recipe, productID) {
 	if (productID == null || productID == '') return;
 	
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
-		$.each(remains, function (remain) {
+		remains.forEach(function(remain) {
 			material_remains[productID].push(remain);
 		});
 		calcProduction(recipe);
@@ -93,10 +93,10 @@ function loadRecipe() {
 	if (productID == null || productID == '') return;
 	material_remains = [];
 	results = [];
-	
+	console.log('load ./'+realm+'/recipe_'+productID+'.json');
 	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
-		$.each(recipes, function (recipe) {
-			$.each(recipe.ip, function (ingridient) {
+		recipes.forEach(function(recipe) {
+			recipe.ip.forEach(function(ingridient) {
 				loadRemains(recipe, ingridient.pi);
 			});
 		});
