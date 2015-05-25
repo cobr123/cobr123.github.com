@@ -143,7 +143,7 @@ function calcResult(recipe, materials, tech) {
 	var Sale_Price	= $("#salePrice", this).val();
 	//количество товаров производимых 1 человеком
 	var prodbase_quan   = recipe.rp[0].pbq;
-	var prodbase_quan2  = recipe.rp[1].pbq || 0;
+	//var prodbase_quan2  = recipe.rp[1].pbq || 0;
 	
 	var work_quant	= $("#workQuan", this).val() || 10000;
 	var work_salary	= $("#workSalary", this).val().replace(',', '.') || 300;
