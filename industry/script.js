@@ -110,8 +110,11 @@ function updateTableFromCache(){
 		output += '<td align="center" id="td_profit">'+val.profit+'</td>';
 		output += '</tr>';
 	});
+	console.log('output = ' + output);
 	$('#xtabletbody').html(output); 	// replace all existing content
-	sortTable();
+	if(output != ''){
+		sortTable();
+	}
 }
 //////////////////////////////////////////////////////
 var material_remains = [];
