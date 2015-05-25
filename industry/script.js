@@ -253,6 +253,7 @@ function calcProduction(recipe) {
 		var result = calcResult(recipe, materials, tech);
 		addToResultCache(result);
 	}
+	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
 	updateTableFromCache();
 }
 function loadRemains(recipe, productID, npMinQuality) {
