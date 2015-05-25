@@ -81,6 +81,9 @@ function loadRemains(recipe, productID) {
 	
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
 		remains.forEach(function(remain) {
+			if(material_remains[productID] == null){
+				material_remains[productID] = [];
+			}
 			material_remains[productID].push(remain);
 		});
 		calcProduction(recipe);
