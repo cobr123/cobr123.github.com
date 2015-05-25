@@ -90,7 +90,8 @@ var sagMaterialImg = [];
 function updateTableFromCache(){
 	var output = '';
 	 
-	tableCache.forEach(function(val){
+	for (var key in tableCache) {
+		var val = tableCache[key];
 		output += '<tr class="trec">';
 		output += '<td align="center">'+val.spec+'</td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
@@ -109,7 +110,7 @@ function updateTableFromCache(){
 		output += '<td align="center" id="td_cost">'+val.cost+'</td>';
 		output += '<td align="center" id="td_profit">'+val.profit+'</td>';
 		output += '</tr>';
-	});
+	}
 	$('#xtabletbody').html(output); 	// replace all existing content
 	sortTable();
 }
