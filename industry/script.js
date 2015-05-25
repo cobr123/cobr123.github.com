@@ -44,11 +44,170 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 }
+//резделитель разрядов
+function commaSeparateNumber(val){
+	while (/(\d+)(\d{3})/.test(val.toString())){
+		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	}
+	return val;
+}
+//////////////////////////////////////////////////////
+var tableCache = [];
+function addToResultCache(val){
+	var suitable = true;
+	
+	if (suitable && val.quality >= $('#qualityFrom').val()) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality <= $('#qualityTo').val()) {suitable = true;} else {suitable = false;}
+	
+	if (suitable && val.cost >= $('#costFrom').val()) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost <= $('#costTo').val()) {suitable = true;} else {suitable = false;}
+	
+	if(suitable){
+		tableCache.push(val);
+	}
+}
+function sortTable(){
+	var svOrder = $('#sort_dir').val();
+	var svColId = $('#sort_col_id').val();
+	var isAscending = svOrder=='asc';
+	var orderArrow = isAscending?'&#9650;':'&#9660;';
+	$('#sort_by_'+svColId).html(orderArrow);
+	 
+	var table = document.getElementById('xtable');
+	var tableBody = table.querySelector('tbody');
+	tinysort(
+			tableBody.querySelectorAll('tr')
+			,{
+					selector:'td#td_'+svColId
+					,order: svOrder
+			}
+	);
+}
+var sagMaterialImg = [];
+function updateTableFromCache(){
+	var output = '';
+	 
+	tableCache.forEach(function(val){
+		output += '<tr class="trec">';
+		output += '<td align="center">'+val.spec+'</td>';
+		output += '<td align="center">'+val.equipQual+'</td>';
+		output += '<td align="center" id="td_tech">'+val.tech+'</td>';
+		var svMaterialsImg = '';
+		var svMaterialsQual = '';
+		var svMaterialsPrice = '';
+		val.materials.forEach(function(mat){
+			svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
+			svMaterialsQual += '<td align="center">'+mat.quality+'</td>';
+			svMaterialsPrice += '<td align="center">'+mat.price+'</td>';
+		});
+		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
+		output += '<td align="center" id="td_quality">'+val.quality+'</td>';
+		output += '<td align="center" id="td_quantity">'+val.quantity+'</td>';
+		output += '<td align="center" id="td_cost">'+val.cost+'</td>';
+		output += '<td align="center" id="td_profit">'+val.profit+'</td>';
+		output += '</tr>';
+	});
+	$('#xtabletbody').html(output); 	// replace all existing content
+	sortTable();
+}
 //////////////////////////////////////////////////////
 var material_remains = [];
-var results = [];
-function calcResult(recipe, materials) {
+function calcResult(recipe, materials, tech) {
 	console.log('calcResult for materials.length = ' + materials.length);
+	var result = {
+		spec: recipe.s
+	 ,tech: tech
+	 ,quality: 0
+	 ,quantity: 0
+	 ,cost: 0
+	 ,profit: 0
+	 ,equipQual: 0
+	 ,materials: materials
+	};
+	var ingQual = [],
+				ingPrice = [],
+				ingBaseQty = [],
+				ingTotalPrice = [],
+				ingCost = [],
+				IngTotalCost = 0;
+				
+	recipe.ip.forEach(function(ingredient) {
+		ingBaseQty.push(ingredient.q || 0);
+	});
+	materials.forEach(function(material){
+		ingQual.push(material.quality || 0);
+		ingPrice.push(material.price || 0);
+	});
+	var num = ingQual.length;
+	var eff = 1;
+	var Sale_Price	= $("#salePrice", this).val();
+	//количество товаров производимых 1 человеком
+	var prodbase_quan   = recipe.rp[0].pbq;
+	var prodbase_quan2  = recipe.rp[1].pbq || 0;
+	
+	var work_quant	= $("#workQuan", this).val() || 10000;
+	var work_salary	= $("#workSalary", this).val().replace(',', '.') || 300;
+	
+	//квалификация работников
+	var PersonalQual = Math.pow(tech, 0.8);
+	//$("#PersonalQual", this).text(PersonalQual.toFixed(2));
+	
+	//качество станков
+	var EquipQual = Math.pow(tech, 1.2);
+	//$("#EquipQuan", this).text(EquipQual.toFixed(2));
+	result.equipQual = EquipQual.toFixed(2);
+	
+	var ingQuantity = [];
+	//количество ингридиентов
+	for (var i = 0; i < num; i++) {
+		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
+	}
+	//цена ингридиентов
+	for (var i = 0; i < num; i++) {
+		if (ingPrice[i] > 0) {
+			ingTotalPrice[i] = ingQuantity[i] * ingPrice[i];
+		} else {
+			ingTotalPrice[i] = 0;
+		}
+	}
+	//общая цена ингридиентов
+	for (var i = 0; i < num; i++) {
+		IngTotalCost += ingTotalPrice[i];
+	}
+	//объем выпускаемой продукции
+	var Prod_Quantity = work_quant * prodbase_quan * Math.pow(1.05, tech-1) *  eff;
+	result.quantity = Math.round (Prod_Quantity);
+	
+	//итоговое качество ингридиентов
+	var IngTotalQual = 0;
+	var IngTotalQty = 0;
+	for (var i = 0; i < num; i++) {
+		IngTotalQual+= ingQual[i]*ingBaseQty[i];
+		IngTotalQty += ingBaseQty[i];
+	};
+	IngTotalQual = IngTotalQual/IngTotalQty*eff;	
+	
+	//качество товара
+	var ProdQual = Math.pow(IngTotalQual, 0.5) * Math.pow(tech, 0.65);
+	//ограничение качества (по технологии)
+	if (ProdQual > Math.pow(tech, 1.3) ) {ProdQual = Math.pow(tech, 1.3)}
+	if ( ProdQual < 1 ) { ProdQual = 1 }	
+	//бонус к качеству
+	ProdQual = ProdQual * ( 1 + recipe.rp[0].qbp / 100 );
+	//$("#ProdQual", this).text( ProdQual.toFixed(2) ) ;
+	result.quality = ProdQual.toFixed(2);
+	
+	//себестоимость
+	var zp = work_salary * work_quant;
+	var exps = IngTotalCost + zp + zp * 0.1 ;
+	//$("#Cost", this).text( "$" + commaSeparateNumber((exps / Prod_Quantity).toFixed(2)) );
+	result.cost = (exps / Prod_Quantity).toFixed(2);
+	
+	//прибыль
+	var profit = ( Sale_Price * Prod_Quantity ) - exps;
+	//$("#profit", this).text( "$" + commaSeparateNumber(profit.toFixed(2)) );
+	result.profit = profit;
+	return result;
 }
 function cartesianProduct(a) { // a = array of array
     var i, j, l, m, a1, o = [];
@@ -84,9 +243,15 @@ function calcProduction(recipe) {
 	
 	materials = cartesianProduct(remains);
 	console.log('cartesianProduct result materials.length = ' + materials.length);
-	calcResult(recipe, materials);
+	var techFrom = $("#techFrom", this).val() || 10;
+	var techTo = $("#techTo", this).val() || techFrom;
+	for (tech = techFrom; tech <= techTo; i++) { 
+		var result = calcResult(recipe, materials, tech);
+		addToResultCache(result);
+	}
+	updateTableFromCache();
 }
-function loadRemains(recipe, productID) {
+function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	if (productID == null || productID == '') return;
@@ -94,10 +259,20 @@ function loadRemains(recipe, productID) {
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
 		remains.forEach(function(remain) {
+			var suitable = true;
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			material_remains[productID].push(remain);
+			if (suitable && remain.r >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.r <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
+			if(suitable){
+				material_remains[productID].push({
+					quality: remain.q
+				 ,price  : remain.p
+				 ,productID : productID
+				});
+			}
 		});
 		calcProduction(recipe);
 	});
@@ -108,12 +283,11 @@ function loadRecipe() {
 	var productID = getProductID();
 	if (productID == null || productID == '') return;
 	material_remains = [];
-	results = [];
 	console.log('load ./'+realm+'/recipe_'+productID+'.json');
 	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
 		recipes.forEach(function(recipe) {
 			recipe.ip.forEach(function(ingredient) {
-				loadRemains(recipe, ingredient.pi);
+				loadRemains(recipe, ingredient.pi, ingredient.mq);
 			});
 		});
 	});
@@ -126,75 +300,6 @@ function loadData() {
 	- применить фильтр и если подошло записать в таблицу результатов
 	*/
 	loadRecipe();
-	/*
-	$.getJSON('./'+realm+'/recipe_'+productID+'.json', function (recipes) {
-		var output = '';
-
-		$.each(data, function (key, val) {
-			var suitable = true;
-			
-			if (suitable && val.pi == $('#id_product').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ci == nvl($('#id_country').val(),val.ci)) {suitable = true;} else {suitable = false;}
-			if (suitable && val.ri == nvl($('#id_region').val(),val.ri)) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.wi >= $('#wealthIndexFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.wi <= $('#wealthIndexTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.v >= $('#volumeFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.v <= $('#volumeTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpe >= $('#localPercentFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpe <= $('#localPercentTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lpr >= $('#localPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lpr <= $('#localPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.lq >= $('#localQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.lq <= $('#localQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.spr >= $('#shopPriceFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.spr <= $('#shopPriceTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sq >= $('#shopQualityFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sq <= $('#shopQualityTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if (suitable && val.sb >= $('#shopBrandFrom').val()) {suitable = true;} else {suitable = false;}
-			if (suitable && val.sb <= $('#shopBrandTo').val()) {suitable = true;} else {suitable = false;}
-			
-			if(suitable){
-				output += '<tr class="trec">';
-				output += '<td id="td_city"><a target="_blank" href="http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_trade_at_cities/'+val.pi+'/'+val.ci+'/'+val.ri+'/'+val.ti+'">'+val.tc+'</a></td>';
-				output += '<td align="center" id="td_w_idx">'+val.wi+'</td>';
-				output += '<td align="center" id="td_idx">'+val.mi+'</td>';
-				output += '<td align="right" id="td_volume">'+val.v+'</td>';
-				output += '<td align="right" id="td_local_perc" style="color:black">'+val.lpe+'</td>';
-				output += '<td align="right" id="td_local_price">'+val.lpr+'</td>';
-				output += '<td align="right" id="td_local_quality">'+val.lq+'</td>';
-				output += '<td align="right" id="td_shop_price">'+val.spr+'</td>';
-				output += '<td align="right" id="td_shop_quality">'+val.sq+'</td>';
-				output += '<td align="right" id="td_shop_brand">'+val.sb+'</td>';
-				output += '</tr>';
-			}
-		});
-		
-		$('#xtabletbody').html(output); 	// replace all existing content
-		
-		var svOrder = $('#sort_dir').val();
-		var svColId = $('#sort_col_id').val();
-		var isAscending = svOrder=='asc';
-		var orderArrow = isAscending?'&#9650;':'&#9660;';
-		$('#sort_by_'+svColId).html(orderArrow);
-		 
-		var table = document.getElementById('xtable');
-		var tableBody = table.querySelector('tbody');
-		tinysort(
-				tableBody.querySelectorAll('tr')
-				,{
-						selector:'td#td_'+svColId
-						,order: svOrder
-				}
-		);
-	});*/
 	return false;
 }
 
@@ -229,7 +334,10 @@ function loadProducts(callback) {
 		var output = '';
 		var selected = $('#id_product').attr('value');
 		
+		sagMaterialImg = [];
 		$.each(data, function (key, val) {
+			sagMaterialImg[val.i] = val.s;
+			
 			if(svCategoryId == val.pc){
 				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
 				if(selected != null && selected == val.i){

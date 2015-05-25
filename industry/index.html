@@ -29,6 +29,8 @@
 <u><b>Себестоимость</b></u> от <input type="text" id="costFrom" size="12" maxlength="12" value="0.00"> до <input type="text" id="costTo" size="12" maxlength="12" value="1000000.00"><br>
 <u><b>Качество</b></u> от <input type="text" id="qualityFrom" size="7" maxlength="7" value="1.00"> до <input type="text" id="qualityTo" size="7" maxlength="7" value="1000.00"><br>
 <u><b>Технология</b></u> от <input type="text" id="techFrom" size="3" maxlength="3" value="10"> до <input type="text" id="techTo" size="3" maxlength="3" value="10"><br>
+<u><b>Количество работников</b></u> <input type="text" id="workQuan" size="3" maxlength="3" value="10000">, зарплата <input type="text" id="workSalary" size="3" maxlength="3" value="300"><br>
+<u><b>Цена продажи</b></u> <input type="text" id="salePrice" size="3" maxlength="3" value="10"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
 </td></tr>
 </tbody></table>
@@ -44,7 +46,9 @@
 <th id="th_tech">Технология&nbsp;<b id="sort_by_tech"></b></th>
 <td>Сырьё</td>
 <th id="th_quality">Качество&nbsp;<b id="sort_by_quality"></b></th>
+<td id="th_quantity">Количество&nbsp;<b id="sort_by_quantity"></b></td>
 <th id="th_cost">Себестоимость&nbsp;<b id="sort_by_cost"></b></th>
+<td id="th_profit">Прибыль&nbsp;<b id="sort_by_profit"></b></td>
 </tr>
 </thead>
 <tbody id="xtabletbody">
