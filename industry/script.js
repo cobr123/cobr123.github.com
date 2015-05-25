@@ -55,6 +55,8 @@ function commaSeparateNumber(val){
 var tableCache = [];
 function addToResultCache(val){
 	var suitable = true;
+		console.log('val.quality = ' + val.quality);
+		console.log('val.cost = ' + val.cost);
 	/*
 	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
@@ -253,7 +255,6 @@ function calcProduction(recipe) {
 	var techTo = $("#techTo", this).val() || techFrom;
 	for (tech = techFrom; tech <= techTo; tech++) { 
 		var result = calcResult(recipe, materials, tech);
-		console.log('result = ' + result);
 		addToResultCache(result);
 	}
 	var tmp = [];
