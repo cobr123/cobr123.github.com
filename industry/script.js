@@ -48,6 +48,7 @@ function loadSavedFlt(){
 var material_remains = [];
 var results = [];
 function calcResult(recipe, materials) {
+	console.log('calcResult for materials.length = ' + materials.length);
 }
 function cartesianProduct(a) { // a = array of array
     var i, j, l, m, a1, o = [];
