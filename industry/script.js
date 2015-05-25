@@ -55,8 +55,8 @@ function commaSeparateNumber(val){
 var tableCache = [];
 function addToResultCache(val){
 	var suitable = true;
-	console.log('val.quality = ' + val.quality);
-	console.log('val.cost = ' + val.cost);
+	//console.log('val.quality = ' + val.quality);
+	//console.log('val.cost = ' + val.cost);
 	
 	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
@@ -102,17 +102,17 @@ function updateTableFromCache(){
 		var svMaterialsPrice = '';
 		val.materials.forEach(function(mat){
 			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
-			svMaterialsQual += '<td align="center">'+mat.quality+'</td>';
-			svMaterialsPrice += '<td align="center">'+mat.price+'</td>';
+			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
+			svMaterialsPrice += '<td align="center">'+commaSeparateNumber(mat.price)+'</td>';
 		});
 		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
-		output += '<td align="center" id="td_quality">'+val.quality+'</td>';
-		output += '<td align="center" id="td_quantity">'+val.quantity+'</td>';
-		output += '<td align="center" id="td_cost">'+val.cost+'</td>';
-		output += '<td align="center" id="td_profit">'+val.profit+'</td>';
+		output += '<td align="center" id="td_quality">'+commaSeparateNumber(val.quality)+'</td>';
+		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
+		output += '<td align="center" id="td_cost">'+commaSeparateNumber(val.cost)+'</td>';
+		output += '<td align="center" id="td_profit">'+commaSeparateNumber(val.profit)+'</td>';
 		output += '</tr>';
 	});
-	console.log('output = ' + output);
+	//console.log('output = ' + output);
 	$('#xtabletbody').html(output); 	// replace all existing content
 	if(output != ''){
 		sortTable();
@@ -121,7 +121,7 @@ function updateTableFromCache(){
 //////////////////////////////////////////////////////
 var material_remains = [];
 function calcResult(recipe, materials, tech) {
-	console.log('calcResult for materials.length = ' + materials.length);
+	//console.log('calcResult for materials.length = ' + materials.length);
 	var result = {
 		spec: recipe.s
 	 ,tech: tech
@@ -169,7 +169,7 @@ function calcResult(recipe, materials, tech) {
 	//количество ингридиентов
 	for (var i = 0; i < num; i++) {
 		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
-	console.log('ingQuantity[i] = ' + ingQuantity[i]);
+		//console.log('ingQuantity[i] = ' + ingQuantity[i]);
 	}
 	//цена ингридиентов
 	for (var i = 0; i < num; i++) {
@@ -198,7 +198,7 @@ function calcResult(recipe, materials, tech) {
 	
 	//качество товара
 	var ProdQual = Math.pow(IngTotalQual, 0.5) * Math.pow(tech, 0.65);
-	console.log('ProdQual = ' + ProdQual);
+	//console.log('ProdQual = ' + ProdQual);
 	//ограничение качества (по технологии)
 	if (ProdQual > Math.pow(tech, 1.3) ) {ProdQual = Math.pow(tech, 1.3)}
 	if ( ProdQual < 1 ) { ProdQual = 1 }	
@@ -216,7 +216,7 @@ function calcResult(recipe, materials, tech) {
 	//прибыль
 	var profit = ( Sale_Price * Prod_Quantity ) - exps;
 	//$("#profit", this).text( "$" + commaSeparateNumber(profit.toFixed(2)) );
-	result.profit = profit;
+	result.profit = profit.toFixed(2);
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
@@ -245,12 +245,12 @@ function calcProduction(recipe) {
 			}
 		}
 	});
-	console.log('cartesianProduct for remains.length = ' + remains.length);
 	if (!allExists){
-		console.log('calcProduction not all ingredients has remains');
+		//console.log('calcProduction not all ingredients has remains');
 		return;
 	}
 	
+	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	var techFrom = $("#techFrom", this).val() || 10;
