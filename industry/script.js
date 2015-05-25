@@ -202,6 +202,8 @@ function calcResult(recipe, materials, tech) {
 	if ( ProdQual < 1 ) { ProdQual = 1 }	
 	//бонус к качеству
 	ProdQual = ProdQual * ( 1 + recipe.rp[0].qbp / 100 );
+	console.log('recipe.rp = ' + recipe.rp);
+	console.log('recipe.rp[0].qbp = ' + recipe.rp[0].qbp);
 	//$("#ProdQual", this).text( ProdQual.toFixed(2) ) ;
 	result.quality = ProdQual.toFixed(2);
 	
