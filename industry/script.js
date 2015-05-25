@@ -37,7 +37,7 @@ function loadSavedFlt(){
 			$('#id_category').val(id_category);
 			loadProducts(loadProductsCallback);
   		};
-		changeRealm(productCategoriesCallback, countryCallback);
+		changeRealm(productCategoriesCallback);
 		
 	} else {
 		loadProductCategories();
@@ -228,7 +228,7 @@ function loadProducts(callback) {
 	});
 	return false;
 }
-function changeRealm(productCategoriesCallback, countryCallback) {
+function changeRealm(productCategoriesCallback) {
 	loadProductCategories(productCategoriesCallback);
 	setVal('realm', getRealm());
 	fillUpdateDate();
