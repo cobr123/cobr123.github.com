@@ -259,7 +259,7 @@ function calcProduction(recipe) {
 		console.log('qualityFrom = ' + parseFloat($("#qualityFrom").val().replace(',', '.'),10));
 		console.log('qualityTo = ' + parseFloat($("#qualityTo").val().replace(',', '.'),10));
 		console.log('costFrom = ' + parseFloat($("#costFrom").val().replace(',', '.'),10));
-		console.log('costTo = ' + parseFloat($("#costFrom").val().replace(',', '.'),10));
+		console.log('costTo = ' + parseFloat($("#costTo").val().replace(',', '.'),10));
 	}
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
