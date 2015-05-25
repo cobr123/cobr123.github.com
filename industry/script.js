@@ -55,13 +55,13 @@ function commaSeparateNumber(val){
 var tableCache = [];
 function addToResultCache(val){
 	var suitable = true;
-	
+	/*
 	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	
 	if (suitable && val.cost >= parseFloat($('#costFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 	if (suitable && val.cost <= parseFloat($('#costTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
-	
+	*/
 	if(suitable){
 		var existed = tableCache[val.quality];
 		if(existed == null || existed.cost > val.cost){
