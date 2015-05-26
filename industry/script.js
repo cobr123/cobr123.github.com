@@ -109,8 +109,9 @@ function updateTableFromCache(){
 	
 	tableCache.forEach(function(val){
 		output += '<tr class="trec">';
+		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
 		var specHref = 'http://virtonomica.ru/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
-		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a></td>';
+		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
 		output += '<td align="center" id="td_tech">'+val.tech+'</td>';
 		var svMaterialsImg = '';
