@@ -32,6 +32,9 @@ function loadSavedFlt(){
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 	
+	$('#techFrom').val(getVal('techFrom'));
+	$('#techTo').val(getVal('techTo'));
+	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
 		var loadProductsCallback = function() {
@@ -284,6 +287,8 @@ function calcProduction(recipe) {
 	}
 	var techFrom = $("#techFrom").val() || 10;
 	var techTo = $("#techTo").val() || techFrom;
+	setVal('techFrom', techFrom);
+	setVal('techTo', techTo);
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
