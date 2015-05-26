@@ -96,7 +96,8 @@ function updateTableFromCache(){
 	
 	tableCache.forEach(function(val){
 		output += '<tr class="trec">';
-		output += '<td align="center">'+val.spec+'</td>';
+		var specHref = 'http://virtonomica.ru/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
+		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a></td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
 		output += '<td align="center" id="td_tech">'+val.tech+'</td>';
 		var svMaterialsImg = '';
@@ -133,6 +134,7 @@ function calcResult(recipe, materials, tech) {
 	//console.log('calcResult for materials.length = ' + materials.length);
 	var result = {
 		spec: recipe.s
+	 ,manufactureID : recipe.i
 	 ,tech: tech
 	 ,quality: 0
 	 ,quantity: 0
@@ -261,7 +263,7 @@ function calcProduction(recipe) {
 	}
 	var techFrom = $("#techFrom").val() || 10;
 	var techTo = $("#techTo").val() || techFrom;
-	var techDiff = techTo - techFrom + 1;
+	var techDiff = techTo - techFrom + materials[0].length;
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
