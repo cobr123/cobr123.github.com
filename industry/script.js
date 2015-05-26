@@ -245,7 +245,7 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
-		var totalMaxLen = 10 * 1000 * 1000;
+		var totalMaxLen = 1000000;
     var i, j, l, m, a1, o = [];
     if (!a || a.length == 0) return a;
 
@@ -373,7 +373,7 @@ function loadProductCategories(callback) {
 		var output = '<option value="" selected=""></option>';
 		var categories = [];
 		$.each(data, function (key, val) {
-			if(categories[val.pc] == null){
+			if(categories[val.pc] == null && val.pc <> 'Полезные ископаемые'){
 				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
