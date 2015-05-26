@@ -261,6 +261,7 @@ function calcProduction(recipe) {
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	materials.splice(10000);
+	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
 	var techFrom = $("#techFrom", this).val() || 10;
 	var techTo = $("#techTo", this).val() || techFrom;
