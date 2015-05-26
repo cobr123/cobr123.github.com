@@ -127,6 +127,7 @@ function updateTableFromCache(){
 var material_remains = [];
 function calcResult(recipe, materials, tech) {
 	//console.log('calcResult for materials.length = ' + materials.length);
+	console.log('calcResult for tech = ' + tech);
 	var result = {
 		spec: recipe.s
 	 ,tech: tech
