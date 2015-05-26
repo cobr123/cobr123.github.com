@@ -107,11 +107,11 @@ function updateTableFromCache(){
 			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
-			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'"onclick="return doWindow(this.href,900,500)">'+commaSeparateNumber(mat.price)+'</a></td>';
+			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'">'+commaSeparateNumber(mat.price)+'</a></td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
-		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'"onclick="return doWindow(this.href,900,500)">'+commaSeparateNumber(val.quality)+'</a></td>';
+		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">'+commaSeparateNumber(val.cost)+'</td>';
 		output += '<td align="center" id="td_profit">'+commaSeparateNumber(val.profit)+'</td>';
@@ -138,6 +138,7 @@ function calcResult(recipe, materials, tech) {
 	 ,materials: materials
 	 ,productID: recipe.rp[0].pi
 	};
+	if ($('#btnCancel').attr('disabled')) {return result;}
 	var ingQual = [],
 				ingPrice = [],
 				ingBaseQty = [],
@@ -228,6 +229,7 @@ function calcResult(recipe, materials, tech) {
 function cartesianProduct(a) { // a = array of array
     var i, j, l, m, a1, o = [];
     if (!a || a.length == 0) return a;
+		if ($('#btnCancel').attr('disabled')) {return o;}
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
@@ -240,6 +242,7 @@ function cartesianProduct(a) { // a = array of array
     return o;
 }
 function calcProduction(recipe) {
+	if ($('#btnCancel').attr('disabled')) {return;}
 	var remains = [];
 	var allExists = true;
 	recipe.ip.forEach(function(ingredient) {
@@ -259,6 +262,9 @@ function calcProduction(recipe) {
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
 	console.log('cartesianProduct result materials.length = ' + materials.length);
+	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
+	materials.splice(10000);
+	
 	var techFrom = $("#techFrom", this).val() || 10;
 	var techTo = $("#techTo", this).val() || techFrom;
 	for (tech = techFrom; tech <= techTo; tech++) { 
@@ -280,6 +286,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	if (productID == null || productID == '') return;
+	if ($('#btnCancel').attr('disabled')) {return;}
 	
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
@@ -295,7 +302,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 				material_remains[productID].push({
 					quality: remain.q
 				 ,price  : remain.p
-				 ,remain: remain.r
+				 ,remain : remain.r
 				 ,productID : productID
 				});
 			}
@@ -331,7 +338,11 @@ function loadData() {
 	- посчитать производимую продукцию
 	- применить фильтр и если подошло записать в таблицу результатов
 	*/
+	$('#btnCancel').attr('disabled',false);
+	$('#btnSubmit').attr('disabled',true); 
 	loadRecipe();
+	$('#btnSubmit').attr('disabled',false); 
+	$('#btnCancel').attr('disabled',true); 
 	return false;
 }
 

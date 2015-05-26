@@ -32,10 +32,11 @@
 <u><b>Количество работников</b></u> <input type="text" id="workQuan" size="3" maxlength="3" value="10000">, <u><b>зарплата</b></u> <input type="text" id="workSalary" size="3" maxlength="3" value="300"><br>
 <u><b>Цена продажи</b></u> <input type="text" id="salePrice" size="12" value="0"><br>
 <input type="submit" id="btnSubmit" value="Сформировать">
+<input type="button" id="btnCancel" value="Отменить" disabled onclick="$('#btnSubmit').attr('disabled',false); $('#btnCancel').attr('disabled',true);">
 </td></tr>
 </tbody></table>
 </td></tr>
-<tr><td>&nbsp;</td></tr>
+<tr><td><div id="calc_log"></div></td></tr>
 <tr><td>
 <input type="hidden" id="sort_col_id" name="sort_col_id" value="local_perc">
 <input type="hidden" id="sort_dir" name="sort_dir" value="desc">
