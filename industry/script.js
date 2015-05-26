@@ -402,11 +402,11 @@ function loadProducts(callback) {
 			sagMaterialImg[val.i] = val.s;
 			
 			if(svCategoryId == val.pc){
-				cnt++;
 				if(cnt > 30){
 					cnt = 0;
 					output += '<br>';
 				}
+				cnt++;
 				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
