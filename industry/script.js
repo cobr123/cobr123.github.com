@@ -127,7 +127,6 @@ function updateTableFromCache(){
 var material_remains = [];
 function calcResult(recipe, materials, tech) {
 	//console.log('calcResult for materials.length = ' + materials.length);
-	console.log('calcResult for tech = ' + tech);
 	var result = {
 		spec: recipe.s
 	 ,tech: tech
@@ -268,6 +267,7 @@ function calcProduction(recipe) {
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
 	for (var tech = techFrom; tech <= techTo; tech++) { 
+	  console.log('calcResult for tech = ' + tech);
 		materials.forEach(function(mats) {
 			var result = calcResult(recipe, mats, tech);
 			addToResultCache(result);
