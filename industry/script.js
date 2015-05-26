@@ -245,7 +245,7 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
-		var totalMaxLen = 1000000;
+		var totalMaxLen = 500000;
     var i, j, l, m, a1, o = [];
     if (!a || a.length == 0) return a;
 
@@ -397,10 +397,16 @@ function loadProducts(callback) {
 		var selected = $('#id_product').attr('value');
 		
 		sagMaterialImg = [];
+		var cnt = 0;
 		$.each(data, function (key, val) {
 			sagMaterialImg[val.i] = val.s;
 			
 			if(svCategoryId == val.pc){
+				cnt++;
+				if(cnt > 30){
+					cnt = 0;
+					output += '<br>';
+				}
 				output += '&nbsp;<img src="http://virtonomica.ru'+val.s+'"';
 				if(selected != null && selected == val.i){
 					output += ' border="1"';
