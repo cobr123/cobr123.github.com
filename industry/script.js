@@ -18,6 +18,13 @@ function getVal(spName){
 function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
+//резделитель разрядов
+function commaSeparateNumber(val){
+	while (/(\d+)(\d{3})/.test(val.toString())){
+		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+	}
+	return val;
+}
 function loadSavedFlt(){
 	//var params = getSearchParameters();
 	var realm = getVal('realm');
@@ -43,13 +50,12 @@ function loadSavedFlt(){
 		loadProductCategories();
 		fillUpdateDate();
 	}
-}
-//резделитель разрядов
-function commaSeparateNumber(val){
-	while (/(\d+)(\d{3})/.test(val.toString())){
-		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-	}
-	return val;
+	$('#input[type="text"]').change(function(){
+			$(this).val(commaSeparateNumber($(this).val()));
+	 })
+	 .focus(function(){
+			$(this).val($(this).val().replace(/\s+/g,''));
+	 });
 }
 //////////////////////////////////////////////////////
 var tableCache = [];
@@ -233,7 +239,7 @@ function calcResult(recipe, materials, tech) {
 }
 function cartesianProduct(a) { // a = array of array
     var i, j, l, m, a1, o = [];
-    if (!a || a.length == 0 || a.length > 1000000) return a;
+    if (!a || a.length == 0 || a.length > 100000) return a;
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
