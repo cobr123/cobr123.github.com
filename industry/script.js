@@ -245,16 +245,22 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
+		var maxLen = 100 * 1000;
     var i, j, l, m, a1, o = [];
-    if (!a || a.length == 0 || a.length > 100000) return a;
+    if (!a || a.length == 0 || a.length > maxLen) return a;
+		console.log('cartesianProduct a.length = '+ a.length);
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
     for (i = 0, l = a1[0].length; i < l; i++) {
-        if (a && a.length) for (j = 0, m = a.length; j < m; j++)
-            o.push([a1[0][i]].concat(a[j]));
-        else
-            o.push([a1[0][i]]);
+        if (a && a.length){ 
+					for (j = 0, m = a.length; j < m; j++) {
+						o.push([a1[0][i]].concat(a[j]));
+						if (o.length > maxLen) return a;
+					}
+				} else {
+          o.push([a1[0][i]]);
+				}
     }
     return o;
 }
