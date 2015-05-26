@@ -104,10 +104,12 @@ function updateTableFromCache(){
 		var svMaterialsPrice = '';
 		var href = '';
 		var unitHref = '';
+		var imgSrc = '';
 		val.materials.forEach(function(mat){
+			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
 			unitHref = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
-			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></a></td>';
+			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a></td>';
 		});
