@@ -34,6 +34,9 @@ function loadSavedFlt(){
 	
 	$('#techFrom').val(getVal('techFrom'));
 	$('#techTo').val(getVal('techTo'));
+	$('#workQuan').val(getVal('workQuan'));
+	$('#workSalary').val(getVal('workSalary'));
+	$('#volumeFrom').val(getVal('volumeFrom'));
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
@@ -289,6 +292,9 @@ function calcProduction(recipe) {
 	var techTo = $("#techTo").val() || techFrom;
 	setVal('techFrom', techFrom);
 	setVal('techTo', techTo);
+	setVal('workQuan', $('#workQuan').val());
+	setVal('workSalary', $('#workSalary').val());
+	setVal('volumeFrom', $('#volumeFrom').val());
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
