@@ -138,7 +138,6 @@ function calcResult(recipe, materials, tech) {
 	 ,materials: materials
 	 ,productID: recipe.rp[0].pi
 	};
-	if ($('#btnCancel').attr('disabled')) {return result;}
 	var ingQual = [],
 				ingPrice = [],
 				ingBaseQty = [],
@@ -229,7 +228,6 @@ function calcResult(recipe, materials, tech) {
 function cartesianProduct(a) { // a = array of array
     var i, j, l, m, a1, o = [];
     if (!a || a.length == 0) return a;
-		if ($('#btnCancel').attr('disabled')) {return o;}
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
@@ -242,7 +240,6 @@ function cartesianProduct(a) { // a = array of array
     return o;
 }
 function calcProduction(recipe) {
-	if ($('#btnCancel').attr('disabled')) {return;}
 	var remains = [];
 	var allExists = true;
 	recipe.ip.forEach(function(ingredient) {
@@ -286,7 +283,6 @@ function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
 	if (realm == null || realm == '') return;
 	if (productID == null || productID == '') return;
-	if ($('#btnCancel').attr('disabled')) {return;}
 	
 	console.log('load ./'+realm+'/product_remains_'+productID+'.json');
 	$.getJSON('./'+realm+'/product_remains_'+productID+'.json', function (remains) {
@@ -338,11 +334,7 @@ function loadData() {
 	- посчитать производимую продукцию
 	- применить фильтр и если подошло записать в таблицу результатов
 	*/
-	$('#btnCancel').attr('disabled',false);
-	$('#btnSubmit').attr('disabled',true); 
 	loadRecipe();
-	$('#btnSubmit').attr('disabled',false); 
-	$('#btnCancel').attr('disabled',true); 
 	return false;
 }
 
