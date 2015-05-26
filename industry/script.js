@@ -263,10 +263,10 @@ function calcProduction(recipe) {
 	}
 	var techFrom = $("#techFrom").val() || 10;
 	var techTo = $("#techTo").val() || techFrom;
-	var techDiff = techTo - techFrom + materials[0].length;
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
+	var techDiff = techTo - techFrom + materials[0].length;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	materials.splice(10000/techDiff);
