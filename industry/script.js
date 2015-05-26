@@ -257,7 +257,7 @@ function cartesianProduct(a) { // a = array of array
         if (a && a.length){ 
 					for (j = 0, m = a.length; j < m; j++) {
 						o.push([a1[0][i]].concat(a[j]));
-						if (o.length > totalMaxLen) return a;
+						if (o.length > totalMaxLen) return o;
 					}
 				} else {
           o.push([a1[0][i]]);
