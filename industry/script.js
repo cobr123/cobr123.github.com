@@ -61,6 +61,9 @@ function loadSavedFlt(){
 			$(this).val($(this).val().replace(/\s+/g,''));
 	 });
 }
+function parseFloatFromFilter(spSelector){
+	return parseFloat($(spSelector).val().replace(',', '.').replace(/\s+/g,''),10);
+}
 //////////////////////////////////////////////////////
 var tableCache = [];
 function addToResultCache(val){
@@ -68,11 +71,11 @@ function addToResultCache(val){
 	//console.log('val.quality = ' + val.quality);
 	//console.log('val.cost = ' + val.cost);
 	
-	if (suitable && val.quality >= parseFloat($("#qualityFrom").val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
-	if (suitable && val.quality <= parseFloat($('#qualityTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality >= parseFloatFromFilter("#qualityFrom")) {suitable = true;} else {suitable = false;}
+	if (suitable && val.quality <= parseFloatFromFilter('#qualityTo')) {suitable = true;} else {suitable = false;}
 	
-	if (suitable && val.cost >= parseFloat($('#costFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
-	if (suitable && val.cost <= parseFloat($('#costTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost >= parseFloatFromFilter('#costFrom')) {suitable = true;} else {suitable = false;}
+	if (suitable && val.cost <= parseFloatFromFilter('#costTo')) {suitable = true;} else {suitable = false;}
 	
 	if(suitable){
 		var existed = tableCache[val.quality];
@@ -170,13 +173,13 @@ function calcResult(recipe, materials, tech) {
 	});
 	var num = ingQual.length;
 	var eff = 1;
-	var Sale_Price = parseFloat($("#salePrice").val(),10) || 0;
+	var Sale_Price = parseFloatFromFilter("#salePrice") || 0;
 	//количество товаров производимых 1 человеком
 	var prodbase_quan   = recipe.rp[0].pbq;
 	//var prodbase_quan2  = recipe.rp[1].pbq || 0;
 	
-	var work_quant	= parseFloat($("#workQuan").val(),10) || 10000;
-	var work_salary	= parseFloat($("#workSalary").val().replace(',', '.'),10) || 300;
+	var work_quant	= parseFloatFromFilter("#workQuan") || 10000;
+	var work_salary	= parseFloatFromFilter("#workSalary") || 300;
 	
 	//квалификация работников
 	var PersonalQual = Math.pow(tech, 0.8);
@@ -310,7 +313,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 			if(material_remains[productID] == null){
 				material_remains[productID] = [];
 			}
-			if (suitable && remain.r >= parseFloat($('#volumeFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
+			if (suitable && remain.r >= parseFloatFromFilter('#volumeFrom')) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if(suitable){
 				material_remains[productID].push({
