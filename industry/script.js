@@ -256,16 +256,17 @@ function calcProduction(recipe) {
 		//console.log('calcProduction not all ingredients has remains');
 		return;
 	}
+	var techFrom = $("#techFrom").val() || 10;
+	var techTo = $("#techTo").val() || techFrom;
+	var techDiff = techTo - techFrom + 1;
 	
 	console.log('cartesianProduct for remains.length = ' + remains.length);
 	materials = cartesianProduct(remains);
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
-	materials.splice(10000);
+	materials.splice(10000/techDiff);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
-	var techFrom = $("#techFrom").val() || 10;
-	var techTo = $("#techTo").val() || techFrom;
 	for (var tech = techFrom; tech <= techTo; tech++) { 
 		materials.forEach(function(mats) {
 			var result = calcResult(recipe, mats, tech);
