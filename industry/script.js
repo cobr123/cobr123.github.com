@@ -373,7 +373,7 @@ function loadProductCategories(callback) {
 		var output = '<option value="" selected=""></option>';
 		var categories = [];
 		$.each(data, function (key, val) {
-			if(categories[val.pc] == null && val.pc <> 'Полезные ископаемые'){
+			if(categories[val.pc] == null && val.pc != 'Полезные ископаемые'){
 				output += '<option value="'+val.pc+'">'+val.pc+'</option>';
 				categories[val.pc] = 1;
 			}
