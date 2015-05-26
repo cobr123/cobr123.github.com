@@ -245,11 +245,9 @@ function calcResult(recipe, materials, tech) {
 	return result;
 }
 function cartesianProduct(a) { // a = array of array
-		var maxLen = 100 * 1000;
 		var totalMaxLen = 10 * 1000 * 1000;
     var i, j, l, m, a1, o = [];
-    if (!a || a.length == 0 || a[0].length > maxLen) return a;
-		console.log('cartesianProduct a[0].length = '+ a[0].length);
+    if (!a || a.length == 0) return a;
 
     a1 = a.splice(0,1);
     a = cartesianProduct(a);
