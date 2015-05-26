@@ -50,7 +50,10 @@ function loadSavedFlt(){
 		loadProductCategories();
 		fillUpdateDate();
 	}
-	$('#input[type="text"]').change(function(){
+	$('input[type="text"]').each(function(){
+			$(this).val(commaSeparateNumber($(this).val()));
+	});
+	$('input[type="text"]').change(function(){
 			$(this).val(commaSeparateNumber($(this).val()));
 	 })
 	 .focus(function(){
