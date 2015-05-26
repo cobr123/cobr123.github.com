@@ -103,11 +103,13 @@ function updateTableFromCache(){
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
 		var href = '';
+		var unitHref = '';
 		val.materials.forEach(function(mat){
-			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
-			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
+			href = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
+			unitHref = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.unitID+'/';
+			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></a></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
-			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'">'+commaSeparateNumber(mat.price)+'</a></td>';
+			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">'+commaSeparateNumber(mat.price)+'</a></td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
@@ -277,7 +279,7 @@ function calcProduction(recipe) {
 	for (var key in tableCache) tmp.push(tableCache[key]);
 	tableCache = tmp;
 	tableCache.sort(function(a,b) { return a.cost/a.quality - b.cost/b.quality } );
-	tableCache.splice(100);
+	tableCache.splice(50);
 	
 	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
 	updateTableFromCache();
@@ -302,6 +304,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 				 ,price  : remain.p
 				 ,remain : remain.r
 				 ,productID : productID
+				 ,unitID : remain.ui
 				});
 			}
 		});
