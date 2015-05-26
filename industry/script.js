@@ -107,11 +107,11 @@ function updateTableFromCache(){
 			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
-			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'">'+commaSeparateNumber(mat.price)+'</a></td>';
+			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'"onclick="return doWindow(this.href,900,500)">'+commaSeparateNumber(mat.price)+'</a></td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
-		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
+		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'"onclick="return doWindow(this.href,900,500)">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">'+commaSeparateNumber(val.cost)+'</td>';
 		output += '<td align="center" id="td_profit">'+commaSeparateNumber(val.profit)+'</td>';
