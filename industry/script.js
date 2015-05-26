@@ -265,7 +265,7 @@ function calcProduction(recipe) {
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
 	tableCache = tmp;
-	tableCache.sort(function(a,b) { return a.cost - b.cost } );
+	tableCache.sort(function(a,b) { return a.cost/a.quality - b.cost/b.quality } );
 	tableCache.splice(100);
 	
 	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
@@ -290,10 +290,16 @@ function loadRemains(recipe, productID, npMinQuality) {
 				material_remains[productID].push({
 					quality: remain.q
 				 ,price  : remain.p
+				 ,remain: remain.r
 				 ,productID : productID
 				});
 			}
 		});
+		var tmp = material_remains[productID];
+		tmp.sort(function(a,b) { return a.remain - b.remain } );
+		tmp.splice(100);
+		material_remains[productID]  = tmp;
+		
 		calcProduction(recipe);
 	});
 }
