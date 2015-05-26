@@ -32,11 +32,11 @@ function loadSavedFlt(){
 	var id_category = getVal('id_category');
 	var id_product = getVal('id_product');
 	
-	$('#techFrom').val(getVal('techFrom'));
-	$('#techTo').val(getVal('techTo'));
-	$('#workQuan').val(getVal('workQuan'));
-	$('#workSalary').val(getVal('workSalary'));
-	$('#volumeFrom').val(getVal('volumeFrom'));
+	$('#techFrom').val(getVal('techFrom') || 10);
+	$('#techTo').val(getVal('techTo') || 10);
+	$('#workQuan').val(getVal('workQuan') || 10000);
+	$('#workSalary').val(getVal('workSalary') || 300);
+	$('#volumeFrom').val(getVal('volumeFrom') || 1);
 	
 	if (realm != null || realm != '') {
 		$('#realm').val(realm);
