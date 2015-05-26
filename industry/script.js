@@ -106,7 +106,7 @@ function updateTableFromCache(){
 		var unitHref = '';
 		val.materials.forEach(function(mat){
 			unitHref = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
-			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.unitID+'/';
+			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></a></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a></td>';
