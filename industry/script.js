@@ -19,9 +19,10 @@ function setVal(spName, pValue){
 	window.localStorage.setItem(spName,JSON.stringify(pValue));
 }
 //резделитель разрядов
-function commaSeparateNumber(val){
+function commaSeparateNumber(val, sep){
+	var separator = sep || ',';
 	while (/(\d+)(\d{3})/.test(val.toString())){
-		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+		val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1"+separator);
 	}
 	return val;
 }
@@ -51,10 +52,10 @@ function loadSavedFlt(){
 		fillUpdateDate();
 	}
 	$('input[type="text"]').each(function(){
-			$(this).val(commaSeparateNumber($(this).val()));
+			$(this).val(commaSeparateNumber($(this).val(),' '));
 	});
 	$('input[type="text"]').change(function(){
-			$(this).val(commaSeparateNumber($(this).val()));
+			$(this).val(commaSeparateNumber($(this).val(),' '));
 	 })
 	 .focus(function(){
 			$(this).val($(this).val().replace(/\s+/g,''));
