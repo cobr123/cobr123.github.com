@@ -264,9 +264,9 @@ function calcProduction(recipe) {
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
-	var techFrom = $("#techFrom", this).val() || 10;
-	var techTo = $("#techTo", this).val() || techFrom;
-	for (tech = techFrom; tech <= techTo; tech++) { 
+	var techFrom = $("#techFrom").val() || 10;
+	var techTo = $("#techTo").val() || techFrom;
+	for (var tech = techFrom; tech <= techTo; tech++) { 
 		materials.forEach(function(mats) {
 			var result = calcResult(recipe, mats, tech);
 			addToResultCache(result);
