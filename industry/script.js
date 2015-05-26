@@ -136,7 +136,7 @@ function calcResult(recipe, materials, tech) {
 	 ,profit: 0
 	 ,equipQual: 0
 	 ,materials: materials
-	 ,productID: recipe.i
+	 ,productID: recipe.rp[0].pi
 	};
 	var ingQual = [],
 				ingPrice = [],
