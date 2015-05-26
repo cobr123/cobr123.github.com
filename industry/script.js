@@ -114,7 +114,7 @@ function updateTableFromCache(){
 		output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.spec+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
 		output += '<td align="center">'+val.equipQual+'</td>';
 		var svDate = new Date().toISOString().slice(0, 10);
-		var techHref = 'http://virtonomica.ru/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate;
+		var techHref = 'http://virtonomica.ru/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
 		var svMaterialsImg = '';
 		var svMaterialsQual = '';
