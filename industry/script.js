@@ -124,8 +124,8 @@ function updateTableFromCache(){
 			unitHref = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a></td>';
-			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
-			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a></td>';
+			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
+			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
