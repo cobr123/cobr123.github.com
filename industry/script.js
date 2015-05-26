@@ -293,7 +293,6 @@ function loadRemains(recipe, productID, npMinQuality) {
 				material_remains[productID] = [];
 			}
 			if (suitable && remain.r >= parseFloat($('#volumeFrom').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
-			if (suitable && remain.r <= parseFloat($('#volumeTo').val().replace(',', '.'),10)) {suitable = true;} else {suitable = false;}
 			if (suitable && remain.q >= npMinQuality) {suitable = true;} else {suitable = false;}
 			if(suitable){
 				material_remains[productID].push({
