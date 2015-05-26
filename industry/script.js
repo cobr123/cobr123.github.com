@@ -90,6 +90,7 @@ function sortTable(){
 }
 var sagMaterialImg = [];
 function updateTableFromCache(){
+	var realm = getRealm();
 	var output = '';
 	$('#xtabletbody').html(''); 	// replace all existing content
 	
@@ -101,13 +102,16 @@ function updateTableFromCache(){
 		var svMaterialsImg = '';
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
+		var href = '';
 		val.materials.forEach(function(mat){
+			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			//svMaterialsImg += '<td align="center"><img src="http://virtonomica.ru'+sagMaterialImg[mat.productID]+'"></td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'</td>';
-			svMaterialsPrice += '<td align="center">'+commaSeparateNumber(mat.price)+'</td>';
+			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+href+'">'+commaSeparateNumber(mat.price)+'</a></td>';
 		});
+		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
 		output += '<td align="center"><table><tr>'+svMaterialsImg+'</tr><tr>'+svMaterialsQual+'</tr><tr>'+svMaterialsPrice+'</tr></table></td>';
-		output += '<td align="center" id="td_quality">'+commaSeparateNumber(val.quality)+'</td>';
+		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">'+commaSeparateNumber(val.cost)+'</td>';
 		output += '<td align="center" id="td_profit">'+commaSeparateNumber(val.profit)+'</td>';
@@ -132,6 +136,7 @@ function calcResult(recipe, materials, tech) {
 	 ,profit: 0
 	 ,equipQual: 0
 	 ,materials: materials
+	 ,productID: recipe.i
 	};
 	var ingQual = [],
 				ingPrice = [],
