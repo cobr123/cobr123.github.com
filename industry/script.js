@@ -120,6 +120,7 @@ function updateTableFromCache(splicedTableCache){
 		var techHref = 'http://virtonomica.ru/'+realm+'/main/globalreport/technology/'+val.manufactureID+'/'+val.tech+'/target_market_summary/'+svDate+'/bid';
 		output += '<td align="center" id="td_tech"><a target="_blank" href="'+techHref+'">'+val.tech+'</a></td>';
 		var svMaterialsImg = '';
+		var svMaterialsQty = '';
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
 		var href = '';
@@ -130,11 +131,12 @@ function updateTableFromCache(splicedTableCache){
 			unitHref = 'http://virtonomica.ru/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+mat.productID+'/';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a></td>';
+			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
-		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
+		output += '<td align="center"><table cellspacing="0" cellpadding="0"><tr class="trec">'+svMaterialsImg+'</tr><tr class="trec">'+svMaterialsQty+'</tr><tr class="trec">'+svMaterialsQual+'</tr><tr class="trec">'+svMaterialsPrice+'</tr></table></td>';
 		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">$'+commaSeparateNumber(val.cost)+'</td>';
@@ -200,6 +202,7 @@ function calcResult(recipe, materials, tech) {
 	//количество ингридиентов
 	for (var i = 0; i < num; i++) {
 		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
+		result.materials[i].ingQty = ingQuantity[i];
 		//console.log('ingQuantity[i] = ' + ingQuantity[i]);
 	}
 	//цена ингридиентов
@@ -395,6 +398,7 @@ function loadRemains(recipe, productID, npMinQuality) {
 				material_remains[productID].push({
 					quality: remain.q
 				 ,price  : remain.p
+				 ,ingQty : 0
 				 ,remain : remain.r
 				 ,productID : productID
 				 ,unitID : remain.ui
