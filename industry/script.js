@@ -202,7 +202,7 @@ function calcResult(recipe, materials, tech) {
 	//количество ингридиентов
 	for (var i = 0; i < num; i++) {
 		ingQuantity[i] = ingBaseQty[i] * prodbase_quan * work_quant * Math.pow(1.05, tech-1 ) * eff;
-		result.materials[i].ingQty = ingQuantity[i];
+		result.materials[i].ingQty = ingQuantity[i].toFixed(2);
 		//console.log('ingQuantity[i] = ' + ingQuantity[i]);
 	}
 	//цена ингридиентов
