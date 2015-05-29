@@ -93,9 +93,6 @@ function addToResultCache(val){
 function sortTable(){
 	var svOrder = $('#sort_dir').val();
 	var svColId = $('#sort_col_id').val();
-	var isAscending = svOrder=='asc';
-	var orderArrow = isAscending?'&#9650;':'&#9660;';
-	$('#sort_by_'+svColId).html(orderArrow);
 	 
 	var table = document.getElementById('xtable');
 	var tableBody = table.querySelector('tbody');
@@ -108,12 +105,12 @@ function sortTable(){
 	);
 }
 var sagMaterialImg = [];
-function updateTableFromCache(){
+function updateTableFromCache(splicedTableCache){
 	var realm = getRealm();
 	var output = '';
 	$('#xtabletbody').html(''); 	// replace all existing content
 	
-	tableCache.forEach(function(val){
+	splicedTableCache.forEach(function(val){
 		output += '<tr class="trec">';
 		var openCalcHref = 'http://ovh.belyan.in/factory/'+val.manufactureID+'.html';
 		var specHref = 'http://virtonomica.ru/'+realm+'/main/industry/unit_type/info/'+val.manufactureID;
@@ -272,6 +269,70 @@ function cartesianProduct(a) { // a = array of array
     }
     return o;
 }
+function sortTableCache(a,b){
+	var svOrder = $('#sort_dir').val();
+	var svColId = $('#sort_col_id').val();
+	var isAscending = svOrder=='asc';
+	/*
+	{
+		spec: recipe.s
+	 ,manufactureID : recipe.i
+	 ,tech: tech
+	 ,quality: 0
+	 ,quantity: 0
+	 ,cost: 0
+	 ,profit: 0
+	 ,equipQual: 0
+	 ,materials: materials
+	 ,productID: recipe.rp[0].pi
+	};
+	*/
+	if(svColId == 'th_tech' && a.tech != a.tech){
+		if(isAscending){
+		  return b.tech - a.tech;
+		} else {
+		  return a.tech - b.tech;
+		}
+	} 
+	else if(svColId == 'th_quality' && a.quality != a.quality){
+		if(isAscending){
+		  return b.quality - a.quality;
+		} else {
+		  return a.quality - b.quality;
+		}
+	} 
+	else if(svColId == 'th_quantity' && a.quantity != a.quantity){
+		if(isAscending){
+		  return b.quantity - a.quantity;
+		} else {
+		  return a.quantity - b.quantity;
+		}
+	} 
+	else if(svColId == 'th_cost' && a.cost != a.cost){
+		if(isAscending){
+		  return b.cost - a.cost;
+		} else {
+		  return a.cost - b.cost;
+		}
+	} 
+	else if(svColId == 'th_profit' && a.profit != a.profit){
+		if(isAscending){
+		  return b.profit - a.profit;
+		} else {
+		  return a.profit - b.profit;
+		}
+	} else {
+		return a.cost/a.quality - b.cost/b.quality;
+	}
+}
+function sortAndUpdateResult() {
+	tableCache.sort(sortTableCache);
+	var splicedTableCache = tableCache;
+	splicedTableCache.splice(50);
+	
+	console.log('updateTableFromCache for splicedTableCache.length = ' + splicedTableCache.length);
+	updateTableFromCache(splicedTableCache);
+}
 function calcProduction(recipe) {
 	var remains = [];
 	var allExists = true;
@@ -314,11 +375,7 @@ function calcProduction(recipe) {
 	var tmp = [];
 	for (var key in tableCache) tmp.push(tableCache[key]);
 	tableCache = tmp;
-	tableCache.sort(function(a,b) { return a.cost/a.quality - b.cost/b.quality } );
-	tableCache.splice(50);
-	
-	console.log('updateTableFromCache for tableCache.length = ' + tableCache.length);
-	updateTableFromCache();
+	sortAndUpdateResult();
 }
 function loadRemains(recipe, productID, npMinQuality) {
 	var realm = getRealm();
@@ -505,13 +562,7 @@ $(document).ready(function () {
 			setVal('sort_dir', $('#sort_dir').val());
 			var orderArrow = isAscending?'&#9660;':'&#9650;';
 			$('#sort_by_'+tableHeaderId).html(orderArrow);
-			tinysort(
-					tableBody.querySelectorAll('tr')
-					,{
-							selector:'td#td_'+tableHeaderId
-							,order: order
-					}
-			);
+			sortAndUpdateResult();
 		}
 	});
 	loadSavedFlt();
