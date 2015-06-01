@@ -365,7 +365,8 @@ function calcProduction(recipe) {
 	var techDiff = techTo - techFrom + materials[0].length;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
 	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
-	materials.splice(10000/techDiff);
+	//materials.splice(10000/techDiff);
+	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
 	for (var tech = techFrom; tech <= techTo; tech++) { 
