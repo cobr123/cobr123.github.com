@@ -336,6 +336,36 @@ function sortAndUpdateResult() {
 	console.log('updateTableFromCache for splicedTableCache.length = ' + splicedTableCache.length);
 	updateTableFromCache(splicedTableCache);
 }
+function sortMaterials(a,b){
+	var svOrder = $('#sort_dir').val();
+	var svColId = $('#sort_col_id').val();
+	var isAscending = svOrder=='asc';
+	/*{
+	  quality: remain.q
+	 ,price  : remain.p
+	 ,ingQty : 0
+	 ,remain : remain.r
+	 ,productID : productID
+	 ,unitID : remain.ui
+	};*/
+	if(svColId == 'th_quality' && a.quality != a.quality){
+		if(isAscending){
+		  return b.quality - a.quality;
+		} else {
+		  return a.quality - b.quality;
+		}
+	} 
+	else if(svColId == 'th_cost' && a.price != a.price){
+		if(isAscending){
+		  return b.price - a.price;
+		} else {
+		  return a.price - b.price;
+		}
+	} 
+	else {
+		return a.price/a.quality - b.price/b.quality;
+	}
+}
 function calcProduction(recipe) {
 	var remains = [];
 	var allExists = true;
@@ -364,8 +394,9 @@ function calcProduction(recipe) {
 	materials = cartesianProduct(remains);
 	var techDiff = techTo - techFrom + materials[0].length;
 	console.log('cartesianProduct result materials.length = ' + materials.length);
-	materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
+	//materials.sort(function(a,b) { return a.price/a.quality - b.price/b.quality } );
 	//materials.splice(10000/techDiff);
+	materials.sort(sortMaterials);
 	materials.splice(10000);
 	console.log('cartesianProduct result sorted materials.length = ' + materials.length);
 	
