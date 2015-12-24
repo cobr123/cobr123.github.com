@@ -123,6 +123,7 @@ function updateTableFromCache(splicedTableCache){
 		var svMaterialsQty = '';
 		var svMaterialsQual = '';
 		var svMaterialsPrice = '';
+		var svPricePerQty = '';
 		var href = '';
 		var unitHref = '';
 		var imgSrc = '';
@@ -133,6 +134,7 @@ function updateTableFromCache(splicedTableCache){
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="http://virtonomica.ru'+imgSrc+'"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center">'+commaSeparateNumber(mat.quality)+'&nbsp;</td>';
+			svPricePerQty += '<td align="center">$'+commaSeparateNumber(mat.price / mat.quality)+'&nbsp;</td>';
 			svMaterialsPrice += '<td align="center"><a target="_blank" href="'+unitHref+'">$'+commaSeparateNumber(mat.price)+'</a>&nbsp;</td>';
 		});
 		href = 'http://virtonomica.ru/'+realm+'/main/globalreport/marketing/by_products/'+val.productID+'/';
@@ -140,6 +142,7 @@ function updateTableFromCache(splicedTableCache){
 		output += '<td align="center" id="td_quality"><a target="_blank" href="'+href+'">'+commaSeparateNumber(val.quality)+'</a></td>';
 		output += '<td align="center" id="td_quantity">'+commaSeparateNumber(val.quantity)+'</td>';
 		output += '<td align="center" id="td_cost">$'+commaSeparateNumber(val.cost)+'</td>';
+		output += '<td align="center" id="td_cost">$'+commaSeparateNumber(val.cost / val.quality)+'</td>';
 		output += '<td align="center" id="td_profit">$'+commaSeparateNumber(val.profit)+'</td>';
 		output += '</tr>';
 	});
