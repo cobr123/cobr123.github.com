@@ -1061,7 +1061,7 @@ function initShowHideColSelect() {
 
     sagInvisibibleColumns = getVal('invisibible_columns_btac');
     if (sagInvisibibleColumns == null) {
-        sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst','itp','itr','dem','pop'];
+        sagInvisibibleColumns = ['smvs','smvst','lmvs','lmvst','itp','itr','dem','pop','graph','pred'];
     } else {
         sagInvisibibleColumns = sagInvisibibleColumns.filter(onlyUnique);
     }
