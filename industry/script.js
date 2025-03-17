@@ -244,7 +244,7 @@ function updateTableFromCache(splicedTableCache){
 			imgSrc = sagMaterialImg[mat.productID];
 			unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing?product_id='+mat.productID+'#by-offers';
-			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
+			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'" width="16" height="16"></a></td>';
 			svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.ingQty)+'&nbsp;</td>';
 			svMaterialsQual += '<td align="center"><a target="_blank" href="'+openCalcHref+'">'+commaSeparateNumber(mat.quality)+'</a>&nbsp;</td>';
 			//svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
@@ -684,7 +684,7 @@ function addVolumeFromForIngredient(productID) {
 	var fromLabel = (locale == 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="number" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
 	var href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing?product_id='+productID+'#by-offers';
-	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a>';
+	var svMaterialImg = '<a target="_blank" href="'+href+'"><img src="'+imgSrc+'" width="16" height="16"></a>';
 	$('#volumeFromByMaterials').append(svMaterialImg + field); 
 	savVolumeFromByMaterials[productID] = 1;
 }
