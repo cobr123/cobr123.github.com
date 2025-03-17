@@ -241,7 +241,7 @@ function updateTableFromCache(splicedTableCache){
 		//vPricePerQty = '';
 		val.materials.forEach(function(mat){
 			openCalcHref = '/industry/#id_product='+mat.productID+'&realm='+realm+'&tech_from='+nvTechFrom+'&tech_to='+nvTechTo+'&quality_from='+mat.quality;
-			imgSrc = sagMaterialImg[mat.productID].replace('/img/products/','/img/products/16/');
+			imgSrc = sagMaterialImg[mat.productID];
 			unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.unitID+'/';
 			href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing?product_id='+mat.productID+'#by-offers';
 			svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
@@ -679,7 +679,7 @@ function addVolumeFromForIngredient(productID) {
 	var locale = getLocale();
 	var domain = getDomain(locale);
 	
-	var imgSrc = sagMaterialImg[productID].replace('/img/products/','/img/products/16/');
+	var imgSrc = sagMaterialImg[productID];
 	var defVal = getVal('volumeFrom_'+productID) || getVal('volumeFrom') || 1;
 	var fromLabel = (locale == 'en') ? 'from' : 'от';
 	var field = '&nbsp;'+fromLabel+'&nbsp;<input type="number" id="volumeFrom_'+productID+'" size="7" maxlength="32" value="'+defVal+'"> ';
