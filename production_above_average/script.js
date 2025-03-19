@@ -234,7 +234,7 @@ function updateTable(unZippedData){
 
         if(suitable){
             output += '<tr class="trec hoverable">';
-            imgSrc = sagMaterialImg[val.pi].replace('/img/products/','/img/products/16/');
+            imgSrc = sagMaterialImg[val.pi];
             openCalcHref = '/industry/#id_product='+val.pi+'&realm='+realm+'&tech_from='+val.tl+'&tech_to='+val.tl+'&quality_from='+val.q;
             specHref = 'https://'+domain+'/'+realm+'/main/industry/unit_type/info/'+val.mi;
             output += '<td align="center"><a target="_blank" href="'+specHref+'">'+val.s+'</a>&nbsp;<a target="_blank" href="'+openCalcHref+'"><img src="../favicon.ico"></a></td>';
@@ -247,10 +247,10 @@ function updateTable(unZippedData){
             //vPricePerQty = '';
             val.ir.forEach(function(mat){
                 openCalcHref = '/industry/#id_product='+mat.pi+'&realm='+realm+'&tech_from='+nvTechTo+'&tech_to='+nvTechTo+'&quality_from='+mat.q;
-                imgSrc = sagMaterialImg[mat.pi].replace('/img/products/','/img/products/16/');
+                imgSrc = sagMaterialImg[mat.pi];
                 unitHref = 'https://'+domain+'/'+realm+'/main/unit/view/'+mat.ui+'/';
                 href = 'https://'+domain+'/'+realm+'/main/globalreport/marketing?product_id='+mat.pi+'#by-offers';
-                svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'"></a></td>';
+                svMaterialsImg += '<td align="center"><a target="_blank" href="'+href+'"><img src="'+imgSrc+'" width="16" height="16"></a></td>';
                 //svMaterialsQty += '<td align="center">'+commaSeparateNumber(mat.v)+'&nbsp;</td>';
                 svMaterialsQual += '<td align="center"><a target="_blank" href="'+openCalcHref+'">'+commaSeparateNumber(mat.q)+'</a>&nbsp;</td>';
                 //svPricePerQty += '<td align="center">$'+commaSeparateNumber((mat.price / mat.quality).toFixed(2))+'&nbsp;</td>';
